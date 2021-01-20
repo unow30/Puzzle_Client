@@ -1,0 +1,59 @@
+.test {
+  background-image: url(${});
+  box-sizing: border-box;
+  background-position: initial;
+}
+
+.LoginBox {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  justify-content: space-between;
+  align-items: center;
+  color: white;
+  right: 10vw;
+  top: 60vh;
+  height: 40vh;
+  width: 40vw;
+  background-color: transparent;
+}
+.UserInfoBox {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  right: 10vw;
+  top: 10vh;
+  height: 40vh;
+  width: 40vw;
+  background-color: transparent;
+}
+
+.Logo {
+  background-image: url();
+  width: 80px;
+  height: 80px;
+  z-index: unset;
+}
+
+.UserInput {
+  background-color: transparent;
+  border-bottom: 5px solid #ef4d70;
+}
+.UserInput:focus {
+  outline: none;
+  text-align: center;
+  justify-content: center;
+  justify-content: space-around;
+  position: absolute;
+  top: 40px;
+  left: 40px;
+  z-index: 1;
+  opacity: 0.8;
+  text-align: center;
+  justify-content: flex-end;
+  align-items: flex-end;
+  margin-left: 30px;
+}
