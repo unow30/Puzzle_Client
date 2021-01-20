@@ -1,9 +1,9 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import styled from 'styled-components';
-import Puzzle_Header from '../template/Header'
-import Puzzle_SideBar from '../template/SideBar'
-import Puzzle_Footer from '../template/Footer'
+import Calendar_Header from '../template/Header'
+import Calendar_SideBar from '../template/SideBar'
+import Calendar_Footer from '../template/Footer'
 
 import background_img from '../../../images/background/background.jpg'
 
@@ -30,16 +30,16 @@ const Backgroundgradient = styled.div`
     height: 100vh;
     width: 100wh;
 `
-const Puzzle = () => {
+const Calendar = () => {
     return (
         <Background>
             <Backgroundgradient>
-            <Puzzle_Header></Puzzle_Header>
-            <Puzzle_SideBar></Puzzle_SideBar>
-            <Puzzle_Footer></Puzzle_Footer>
+            <Calendar_Header></Calendar_Header>
+            <Calendar_SideBar></Calendar_SideBar>
+            <Calendar_Footer></Calendar_Footer>
             </Backgroundgradient>
         </Background>
     )
 }
 
-export default Puzzle;
+export default Calendar;
