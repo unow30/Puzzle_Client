@@ -1,5 +1,5 @@
-import { createGlobalStyle } from 'styled-components'
-import reset from 'styled-reset'
+import { createGlobalStyle } from "styled-components";
+import reset from "styled-reset";
 
 // import 'slick-carousel/slick/slick.css'
 // import 'slick-carousel/slick/slick-theme.css'
@@ -68,6 +68,6 @@ const globalStyle = createGlobalStyle`
         font-weight:900;
         src:url(${RobotoBlack})
     }
-`
+`;
 
-export default globalStyle
+export default globalStyle;

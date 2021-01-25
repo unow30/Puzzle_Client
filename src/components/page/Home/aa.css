@@ -1,29 +1,25 @@
 .a{
     background-color: red;
 
-    vertical-align: middle;
-
-    height: 30%;
-
-    position: absolute;
-
-    position: relative;
-    right: 0;
-
-    flex-direction: column;
+    cursor: pointer;
     
-    align-items: flex-end;
+    width: 800px;
+    height: 500px;
+    box-shadow: 0 5px 16px rgba(0, 0, 0, 0.2);
+    background: #fff;
+    color: #000;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    position: relative;
+    z-index: 10;
+    border-radius: 10px;
 
-    display: inline-flex;
-
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    display: flex;
     justify-content: center;
     align-items: center;
-
-    position: relative;
-
-    display: flex;
-
-    justify-content: flex-end;
-    
+    background: rgba(0, 0, 0, 0.8);
     
 }

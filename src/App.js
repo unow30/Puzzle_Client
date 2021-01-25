@@ -7,10 +7,9 @@ import Home from './components/page/Home/Home'
 import Project from './components/page/Project/Project'
 import Puzzle from './components/page/Puzzle/Puzzle'
 import Calendar from './components/page/Calendar/Calendar'
+
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom'
 
-import 'slick-carousel/slick/slick.css'
-import 'slick-carousel/slick/slick-theme.css'
 const App = () => {
   return (
     <ThemeProvider theme={theme}>
@@ -27,4 +26,5 @@ const App = () => {
     </ThemeProvider>
   )
 }
+
 export default App

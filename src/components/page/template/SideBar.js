@@ -2,6 +2,39 @@ import React from 'react';
 import { Link, withRouter } from "react-router-dom";
 import styled from 'styled-components';
 
+export default withRouter(({ location: { pathname } }) => (
+    <>
+        <Puzzle_SideBar_Containers_left>
+            <Puzzle_SideBar_category_ul>
+                <Puzzle_SideBar_category_li>
+                    <SLink current={pathname === "/home"} to={{pathname: "/home",state:{pathname: 'HOME'}}}> HOME </SLink>
+                </Puzzle_SideBar_category_li>
+
+                <Puzzle_SideBar_category_li>
+                    <SLink current={pathname === "/project"} to="/project"> PROJECT </SLink>
+                </Puzzle_SideBar_category_li>
+
+                <Puzzle_SideBar_category_li>
+                    <SLink current={pathname === "/puzzle"} to="/puzzle"> PUZZLE </SLink>
+                </Puzzle_SideBar_category_li>
+
+                <Puzzle_SideBar_category_li>
+                    <SLink current={pathname === "/calendar"} to="/calendar"> CALENDAR </SLink>
+                </Puzzle_SideBar_category_li>
+            </Puzzle_SideBar_category_ul>
+        </Puzzle_SideBar_Containers_left>
+        <Puzzle_SideBar_Containers_right>
+            <Puzzle_SideBar_Title_Bar_Top></Puzzle_SideBar_Title_Bar_Top>
+            <Puzzle_SideBar_Containers_Title>
+                <Puzzle_SideBar_Title>{pathname.replace('/', '').toUpperCase()}</Puzzle_SideBar_Title>
+            </Puzzle_SideBar_Containers_Title>
+            <Puzzle_SideBar_Title_Bar_Top_Bottom></Puzzle_SideBar_Title_Bar_Top_Bottom>
+        </Puzzle_SideBar_Containers_right>
+    </>
+));
+
+// <------------ css ------------> //
+
 const Puzzle_SideBar_Containers_left = styled.div`
     display: flex;
     width: 50%;
@@ -15,6 +48,7 @@ const Puzzle_SideBar_Containers_right = styled.div`
     float:right;
     flex-direction: column;
     align-items: flex-end;
+    width: 50%;
 `
 
 const Puzzle_SideBar_Containers_Title = styled.div`
@@ -73,34 +107,3 @@ const SLink = styled(Link)`
     &:visited{ color: white}
     text-decoration-color: ${props => props.current ? "#FA991D" : "#21A598"}
 `
-
-export default withRouter(({ location: { pathname } }) => (
-    <>
-        <Puzzle_SideBar_Containers_left>
-            <Puzzle_SideBar_category_ul>
-                <Puzzle_SideBar_category_li>
-                    <SLink current={pathname === "/home"} to={{pathname: "/home",state:{pathname: 'HOME'}}}> HOME </SLink>
-                </Puzzle_SideBar_category_li>
-
-                <Puzzle_SideBar_category_li>
-                    <SLink current={pathname === "/project"} to="/project"> PROJECT </SLink>
-                </Puzzle_SideBar_category_li>
-
-                <Puzzle_SideBar_category_li>
-                    <SLink current={pathname === "/puzzle"} to="/puzzle"> PUZZLE </SLink>
-                </Puzzle_SideBar_category_li>
-
-                <Puzzle_SideBar_category_li>
-                    <SLink current={pathname === "/calendar"} to="/calendar"> CALENDAR </SLink>
-                </Puzzle_SideBar_category_li>
-            </Puzzle_SideBar_category_ul>
-        </Puzzle_SideBar_Containers_left>
-        <Puzzle_SideBar_Containers_right>
-            <Puzzle_SideBar_Title_Bar_Top></Puzzle_SideBar_Title_Bar_Top>
-            <Puzzle_SideBar_Containers_Title>
-                <Puzzle_SideBar_Title>{pathname.replace('/', '').toUpperCase()}</Puzzle_SideBar_Title>
-            </Puzzle_SideBar_Containers_Title>
-            <Puzzle_SideBar_Title_Bar_Top_Bottom></Puzzle_SideBar_Title_Bar_Top_Bottom>
-        </Puzzle_SideBar_Containers_right>
-    </>
-));
