@@ -1,35 +1,42 @@
-import React, { useRef, useEffect, useCallback } from 'react'
+import React, { useRef, useEffect, useCallback, useState } from 'react'
 import { useSpring, animated } from 'react-spring'
 import styled from 'styled-components'
 import { MdClose } from 'react-icons/md'
+import axios from 'axios'
 
-import Logo_S from './Img/Puzzle_Logo_ Square.png'
+import Logo_S from '../Img/Puzzle_Logo_ Square.png'
 
-export const FindEamilModal = ({ showEmailModal, setShowEmailModal }) => {
+export const FindPwModal = ({ showPwModal, setShowPwModal }) => {
   const modalRef = useRef()
+  const [find, setFind] = useState(false)
+
+  const onFind = e => {
+    setFind(prev => !prev)
+    e.preventDefault()
+  }
 
   const animation = useSpring({
     config: {
       duration: 250,
     },
-    opacity: showEmailModal ? 1 : 0,
-    transform: showEmailModal ? `translateY(0%)` : `translateY(-100%)`,
+    opacity: showPwModal ? 1 : 0,
+    transform: showPwModal ? `translateY(0%)` : `translateY(-100%)`,
   })
 
   const closeModal = e => {
     if (modalRef.current === e.target) {
-      setShowEmailModal(false)
+      setShowPwModal(false)
     }
   }
 
   const keyPress = useCallback(
     e => {
-      if (e.key === 'Escape' && showEmailModal) {
-        setShowEmailModal(false)
+      if (e.key === 'Escape' && showPwModal) {
+        setShowPwModal(false)
         console.log('I pressed')
       }
     },
-    [setShowEmailModal, showEmailModal]
+    [setShowPwModal, showPwModal]
   )
 
   useEffect(() => {
@@ -37,22 +44,42 @@ export const FindEamilModal = ({ showEmailModal, setShowEmailModal }) => {
     return () => document.removeEventListener('keydown', keyPress)
   }, [keyPress])
 
+  const onSubmit = async e => {
+    e.preventDefault()
+  }
+
   return (
     <>
-      {showEmailModal ? (
+      {showPwModal ? (
         <Background onClick={closeModal} ref={modalRef}>
           <animated.div style={animation}>
-            <ModalWrapper showEmailModal={showEmailModal}>
-              <EmailP>ID 찾기</EmailP>
+            <ModalWrapper showPwModal={showPwModal}>
+              <EmailP>PW 찾기</EmailP>
               <Logo src={Logo_S} />
-              <UserInfoBox>
-                <UserInfoInput type="email" placeholder="Email" />
-                <UserInfoInput type="text" placeholder="Phone" />
-              </UserInfoBox>
-              <Findbtn>찾기</Findbtn>
+              {find ? (
+                <>
+                  <UserInfoBox>
+                    <UserInfoInput type="text" placeholder="New Password" />
+                    <UserInfoInput
+                      type="text"
+                      placeholder="Confirm New Password"
+                    />
+                  </UserInfoBox>
+                  <Findbtn onClick={onFind}>확인</Findbtn>
+                </>
+              ) : (
+                <>
+                  <UserInfoBox>
+                    <UserInfoInput type="text" placeholder="Name" />
+                    <UserInfoInput type="email" placeholder="Email" />
+                    <UserInfoInput type="text" placeholder="Phone" />
+                  </UserInfoBox>
+                  <Findbtn onClick={onFind}>찾기</Findbtn>
+                </>
+              )}
               <CloseModalButton
                 aria-label="Close modal"
-                onClick={() => setShowEmailModal(prev => !prev)}
+                onClick={() => setShowPwModal(prev => !prev)}
               />
             </ModalWrapper>
           </animated.div>
@@ -112,6 +139,14 @@ const UserInfoInput = styled.input`
   }
   font-size: 1.1rem;
 `
+const UserInfo = styled.div`
+  padding-bottom: 10px;
+  margin-bottom: 40px;
+  color: white;
+  width: 10vw;
+
+  font-size: 1.1rem;
+`
 
 const EmailP = styled.div`
   font-size: 2rem;
@@ -130,6 +165,7 @@ const UserInfoBox = styled.div`
 const Findbtn = styled.button`
   position: absolute;
   top: 400px;
+  left: 400px;
   border-radius: 8px;
   color: balck;
   width: 200px;
