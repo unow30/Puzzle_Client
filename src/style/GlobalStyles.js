@@ -1,5 +1,5 @@
-import { createGlobalStyle } from 'styled-components'
-import reset from 'styled-reset'
+import { createGlobalStyle } from "styled-components";
+import reset from "styled-reset";
 
 import RobotoBlack from '../Assets/Fonts/Roboto-Black.ttf'
 import RobotoBold from '../Assets/Fonts/Roboto-Bold.ttf'
@@ -64,6 +64,6 @@ const globalStyle = createGlobalStyle`
         font-weight:900;
         src:url(${RobotoBlack})
     }
-`
+`;
 
-export default globalStyle
+export default globalStyle;

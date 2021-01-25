@@ -19,7 +19,9 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build"
+    "build": "react-scripts build",
+    "deploy": "aws s3 sync ./build s3://puzzlebuild --profile=project_puzzle_admin",
+    "invalidate": "aws cloudfront create-invalidation --profile=project_puzzle_admin --distribution-id E1ZAOKHSFM2HJU --paths / /index.html /mainfest.json /static"
   },
   "eslintConfig": {
     "extends": [
