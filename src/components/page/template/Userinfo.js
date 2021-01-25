@@ -109,14 +109,9 @@ const Userinfo = ({ showUserinfoModal, setShowUserinfoModal }) => {
                       <Profile_Content_Value>{ContentUserCode}</Profile_Content_Value>
                     </Profile_Content_Change_Containers>
 
-                    {/* <Profile_Content_Value ContentEdit={ContentEdit}>email@naver.com</Profile_Content_Value> */}
-                    {/* <Profile_Content_Text>닉네임</Profile_Content_Text>
-                    <Profile_Content_Value>김코딩</Profile_Content_Value>
-                    <Profile_Content_Text>휴대전화 번호</Profile_Content_Text>
-                    <Profile_Content_Value>010-0000-0000</Profile_Content_Value>
-                    <Profile_Content_Text>유저 코드</Profile_Content_Text>
-                    <Profile_Content_Value>ajflasjfwn2</Profile_Content_Value>
-                    <Profile_Content_Text>비밀번호 변경</Profile_Content_Text> */}
+                    <Profile_Content_Text_Containers>
+                      <Profile_Content_Text>비밀번호</Profile_Content_Text>
+                    </Profile_Content_Text_Containers>
                     <Profile_Password_Change onClick={openPasswrodChange} >비밀번호 변경</Profile_Password_Change>
                   </Profile_Content_Inside_Containers>
                 </form>
@@ -287,6 +282,7 @@ const Profile_Content_Change_Containers = styled.div`
   height: 30px;
   display: flex;
   align-items: center;
+  margin-bottom: 40px;
 `
 
 const Profile_Content_Change = styled.input`
