@@ -1,6 +1,10 @@
 import { createGlobalStyle } from 'styled-components'
 import reset from 'styled-reset'
 
+// import 'slick-carousel/slick/slick.css'
+// import 'slick-carousel/slick/slick-theme.css'
+// //이미지 Carousel
+
 import RobotoBlack from '../Assets/Fonts/Roboto-Black.ttf'
 import RobotoBold from '../Assets/Fonts/Roboto-Bold.ttf'
 import RobotoLight from '../Assets/Fonts/Roboto-Light.ttf'
