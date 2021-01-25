@@ -87,7 +87,7 @@ const Userinfo = ({ showUserinfoModal, setShowUserinfoModal }) => {
                       <Profile_Content_Text_Edit onClick ={() => setContentEditNicknamebtn(prev => !prev)}>{ContentEditNicknamebtn ? "취소" : "수정"}</Profile_Content_Text_Edit>
                     </Profile_Content_Text_Containers>
                     <Profile_Content_Change_Containers>
-                      <Profile_Content_Change ContentEditbtn={ContentEditNicknamebtn} value = {ContentNickName}></Profile_Content_Change>
+                      <Profile_Content_Change ContentEditbtn={ContentEditNicknamebtn} placeholder = {ContentNickName}></Profile_Content_Change>
                       <Profile_Content_Change_btn ContentEditbtn={ContentEditNicknamebtn}>저장</Profile_Content_Change_btn>
                       <Profile_Content_Value ContentEditbtn={ContentEditNicknamebtn}>{ContentNickName}</Profile_Content_Value>
                     </Profile_Content_Change_Containers>
@@ -97,7 +97,7 @@ const Userinfo = ({ showUserinfoModal, setShowUserinfoModal }) => {
                       <Profile_Content_Text_Edit onClick ={() => setContentEditPhonebtn(prev => !prev)}>{ContentEditPhonebtn ? "취소" : "수정"}</Profile_Content_Text_Edit>
                     </Profile_Content_Text_Containers>
                     <Profile_Content_Change_Containers>
-                      <Profile_Content_Change ContentEditbtn={ContentEditPhonebtn} value = {ContentPhone}></Profile_Content_Change>
+                      <Profile_Content_Change ContentEditbtn={ContentEditPhonebtn} placeholder = {ContentPhone}></Profile_Content_Change>
                       <Profile_Content_Change_btn ContentEditbtn={ContentEditPhonebtn}>저장</Profile_Content_Change_btn>
                       <Profile_Content_Value ContentEditbtn={ContentEditPhonebtn}>{ContentPhone}</Profile_Content_Value>
                     </Profile_Content_Change_Containers>
@@ -112,15 +112,15 @@ const Userinfo = ({ showUserinfoModal, setShowUserinfoModal }) => {
                     <Profile_Content_Text_Containers>
                       <Profile_Content_Text>비밀번호</Profile_Content_Text>
                     </Profile_Content_Text_Containers>
-                    <Profile_Password_Change onClick={openPasswrodChange} >비밀번호 변경</Profile_Password_Change>
+                    <Profile_Password_Change onClick={openPasswrodChange}>비밀번호 변경</Profile_Password_Change>
                   </Profile_Content_Inside_Containers>
                 </form>
               </Profile_Content_Containers>
-              <Profile_submit_Containers>
+              {/* <Profile_submit_Containers>
                 <Profile_submit_Inside_Containers>
                   <Profile_submit onClick={() => setShowUserinfoModal(prev => !prev)} > 계정 정보 저장하기 </Profile_submit>
                 </Profile_submit_Inside_Containers>
-              </Profile_submit_Containers>
+              </Profile_submit_Containers> */}
             </ModalWrapper>
           </Background>
           <PasswrodChange
@@ -302,6 +302,18 @@ const Profile_Content_Change = styled.input`
 const Profile_Content_Change_btn = styled.button`
   float: right;
   display: ${props => props.ContentEditbtn ? 'block':'none'};
+  border-radius: 5px;
+  border: none;
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 500;
+  color: #111;
+  outline: none;
+  background-color:#FA991D;
+  
+  &:hover {
+      color: white;
+  }
 `
 
 const Profile_Password_Change = styled.button`

@@ -1,19 +1,38 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
+import { useHistory } from 'react-router-dom'
+//라이브러리
 
-import backImg1 from './Img/LandingImg01.jpg'
-import backImg2 from './Img/LandingImg02.jpg'
-import backImg3 from './Img/LandingImg03.jpg'
-import backImg4 from './Img/LandingImg04.jpeg'
+// import backImg1 from './Img/LandingImg01.jpg'
+// import backImg2 from './Img/LandingImg02.jpg'
+// import backImg3 from './Img/LandingImg03.jpg'
+// import backImg4 from './Img/LandingImg04.jpeg'
 import logo from './Img/Puzzle_Logo_ Square.png'
+//이미지
+
+import { Back01 } from './background/Background01'
+import { Back02 } from './background/Background02'
+import { Back03 } from './background/Background03'
+import { Back04 } from './background/Background04'
+import { Login } from './user/Login'
+import { SignUp } from './user/SignUp'
+// import { FindEamilModal } from './user/FindEmailModal'
+// import { FindPwModal } from './user/FindPwModal'
+//컴포넌트
 
 const Landing = () => {
-  const [signUp, setSignUp] = useState(true)
-  const [backImg, setBackImg] = useState(BackImg01)
+  const history = useHistory()
 
-  const Test = () => {
-    return <BackImg02 />
-  }
+  const [signUp, setSignUp] = useState(true)
+  // const [showEmailModal, setShowEmailModal] = useState(false)
+  // const [showPwModal, setShowPwModal] = useState(false)
+
+  // const openEmailModal = () => {
+  //   setShowEmailModal(perv => !perv)
+  // }
+  // const openPwModal = () => {
+  //   setShowPwModal(perv => !perv)
+  // }
 
   const onSignUp = () => {
     setSignUp(prev => !prev)
@@ -23,60 +42,55 @@ const Landing = () => {
   } //새로고침 방지
 
   return (
-    <>
-      <BackImg01>
-        <Guestbun>체험하기</Guestbun>
-        <Maincopy>퍼즐 한 조각 = 업무카드 하나</Maincopy>
-        <MaunContents>
-          퍼즐 한 조각은 업무카드 하나입니다.
-          <br /> 업무를 완료하면 퍼즐조각 하나가 맞춰집니다.
-          <br /> 팀원끼리 업무 진척도를 퍼즐개수로 설명해 줄 수 있습니다.
-          <br />
-          업무카드에 코멘트를 달아서 피드백을 줄 수 있습니다.
-        </MaunContents>
-        <ToggleBox>
-          <BackImgToggle01 onClick={Test} />
-          <BackImgToggle02 />
-          <BackImgToggle03 />
-          <BackImgToggle04 />
-        </ToggleBox>
+    <form onSubmit={onSubmit}>
+      <Back01>
+        <Logo />
+        <Guestbun onClick={() => history.push('./home')}>체험하기</Guestbun>
         {signUp ? (
           <>
-            <form onSubmit={onSubmit}>
-              <div>
-                <Logo></Logo>
-                <UserInfoBox>
-                  <UserInfoInput type="email" placeholder="Email" />
-                  <UserInfoInput type="password" placeholder="Password" />
-                </UserInfoBox>
-                <LoginBox>
-                  <Loginbtn>로그인</Loginbtn>
-                  <FindUserInfobtn>ID찾기</FindUserInfobtn>
-                  <FindUserInfobtn>PW찾기</FindUserInfobtn>
-                  <SignUpbtn onClick={onSignUp}>회원가입</SignUpbtn>
-                </LoginBox>
-              </div>
-            </form>
+            <Login setSignUp={setSignUp} />
+            {/* <div>
+              <UserInfoBox>
+                <UserInfoInput type="email" placeholder="Email" />
+                <UserInfoInput type="password" placeholder="Password" />
+              </UserInfoBox>
+              <LoginBox>
+                <Loginbtn>로그인</Loginbtn>
+                <FindUserInfobtn onClick={openEmailModal}>
+                  ID찾기
+                </FindUserInfobtn>
+                <FindUserInfobtn onClick={openPwModal}>PW찾기</FindUserInfobtn>
+                <SignUpbtn onClick={onSignUp}>회원가입</SignUpbtn>
+              </LoginBox>
+              <FindEamilModal
+                showEmailModal={showEmailModal}
+                setShowEmailModal={setShowEmailModal}
+              />
+              <FindPwModal
+                showPwModal={showPwModal}
+                setShowPwModal={setShowPwModal}
+              />
+            </div> */}
           </>
         ) : (
-          <form onSubmit={onSubmit}>
-            <Logo />
-            <UserSignUpBox>
-              <UserInfoInput type="email" placeholder="Email" />
-              <UserInfoInput type="password" placeholder="Password" />
-              <UserInfoInput type="password" placeholder="Confirm Password" />
-              <UserInfoInput type="text" placeholder="Name" />
-              <UserInfoInput type="tel" placeholder="Phone" />
-              <UserInfoInput type="text" placeholder="Usercode" />
-            </UserSignUpBox>
-            <SignUpBox>
-              <SignUpbtn>회원가입</SignUpbtn>
-              <Loginbtn onClick={onSignUp}>로그인</Loginbtn>
-            </SignUpBox>
-          </form>
+          <SignUp setSignUp={setSignUp} />
+          // <SignUp>
+          //   <UserSignUpBox>
+          //     <UserInfoInput type="email" placeholder="Email" />
+          //     <UserInfoInput type="password" placeholder="Password" />
+          //     <UserInfoInput type="password" placeholder="Confirm Password" />
+          //     <UserInfoInput type="text" placeholder="Name" />
+          //     <UserInfoInput type="tel" placeholder="Phone" />
+          //     <UserInfoInput type="text" placeholder="Usercode" />
+          //   </UserSignUpBox>
+          //   <SignUpBox>
+          //     <SignUpbtn>회원가입</SignUpbtn>
+          //     <Loginbtn onClick={onSignUp}>로그인</Loginbtn>
+          //   </SignUpBox>
+          // </SignUp>
         )}
-      </BackImg01>
-    </>
+      </Back01>
+    </form>
   )
 }
 
@@ -103,127 +117,127 @@ const Guestbun = styled.button`
   }
 `
 
-const BackImg01 = styled.div`
-  background: linear-gradient(
-      271.76deg,
-      #000000 5.77%,
-      rgba(255, 255, 255, 0) 99.13%
-    ),
-    url(${backImg1}) no-repeat bottom fixed;
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
-  height: 100vh;
-`
-const BackImg02 = styled.div`
-  background: linear-gradient(
-      271.76deg,
-      #000000 5.77%,
-      rgba(255, 255, 255, 0) 99.13%
-    ),
-    url(${backImg2}) no-repeat center fixed;
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
-  height: 100vh;
-`
-const BackImg03 = styled.div`
-  background: linear-gradient(
-      271.76deg,
-      #000000 5.77%,
-      rgba(255, 255, 255, 0) 99.13%
-    ),
-    url(${backImg3}) no-repeat center fixed;
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
-  height: 100vh;
-`
-const BackImg04 = styled.div`
-  background: linear-gradient(
-      271.76deg,
-      #000000 5.77%,
-      rgba(255, 255, 255, 0) 99.13%
-    ),
-    url(${backImg4}) no-repeat center fixed;
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
-  height: 100vh;
-`
+// const BackImg01 = styled.div`
+//   background: linear-gradient(
+//       271.76deg,
+//       #000000 5.77%,
+//       rgba(255, 255, 255, 0) 99.13%
+//     ),
+//     url(${backImg1}) no-repeat bottom fixed;
+//   -webkit-background-size: cover;
+//   -moz-background-size: cover;
+//   -o-background-size: cover;
+//   background-size: cover;
+//   height: 100vh;
+// `
+// const BackImg02 = styled.div`
+//   background: linear-gradient(
+//       271.76deg,
+//       #000000 5.77%,
+//       rgba(255, 255, 255, 0) 99.13%
+//     ),
+//     url(${backImg2}) no-repeat center fixed;
+//   -webkit-background-size: cover;
+//   -moz-background-size: cover;
+//   -o-background-size: cover;
+//   background-size: cover;
+//   height: 100vh;
+// `
+// const BackImg03 = styled.div`
+//   background: linear-gradient(
+//       271.76deg,
+//       #000000 5.77%,
+//       rgba(255, 255, 255, 0) 99.13%
+//     ),
+//     url(${backImg3}) no-repeat center fixed;
+//   -webkit-background-size: cover;
+//   -moz-background-size: cover;
+//   -o-background-size: cover;
+//   background-size: cover;
+//   height: 100vh;
+// `
+// const BackImg04 = styled.div`
+//   background: linear-gradient(
+//       271.76deg,
+//       #000000 5.77%,
+//       rgba(255, 255, 255, 0) 99.13%
+//     ),
+//     url(${backImg4}) no-repeat center fixed;
+//   -webkit-background-size: cover;
+//   -moz-background-size: cover;
+//   -o-background-size: cover;
+//   background-size: cover;
+//   height: 100vh;
+// `
 
-const Maincopy = styled.h1`
-  position: absolute;
-  height: 178px;
-  top: 10vh;
-  right: 40vw;
-  font-style: normal;
-  font-weight: bold;
-  font-size: 60px;
-  line-height: 154px;
-  display: flex;
-  align-items: center;
+// const Maincopy = styled.h1`
+//   position: absolute;
+//   height: 178px;
+//   top: 10vh;
+//   right: 40vw;
+//   font-style: normal;
+//   font-weight: bold;
+//   font-size: 60px;
+//   line-height: 154px;
+//   display: flex;
+//   align-items: center;
 
-  color: #ffffff;
-`
+//   color: #ffffff;
+// `
 
-const MaunContents = styled.p`
-  position: absolute;
-  height: 178px;
-  top: 40vh;
-  right: 43vw;
-  font-style: normal;
-  text-align: center;
-  font-weight: bold;
-  font-size: 24px;
-  line-height: 70px;
-  display: flex;
-  align-items: center;
+// const MaunContents = styled.p`
+//   position: absolute;
+//   height: 178px;
+//   top: 40vh;
+//   right: 43vw;
+//   font-style: normal;
+//   text-align: center;
+//   font-weight: bold;
+//   font-size: 24px;
+//   line-height: 70px;
+//   display: flex;
+//   align-items: center;
 
-  color: #ffffff;
-`
+//   color: #ffffff;
+// `
 
-const ToggleBox = styled.div`
-  position: absolute;
-  display: flex;
-  width: 20vw;
-  top: 80%;
-  left: 35%;
-  justify-content: space-around;
-`
+// const ToggleBox = styled.div`
+//   position: absolute;
+//   display: flex;
+//   width: 20vw;
+//   top: 80%;
+//   left: 35%;
+//   justify-content: space-around;
+// `
 
-const BackImgToggle01 = styled.div`
-  width: 1.5rem;
-  height: 1.5rem;
-  background: #fa991d;
-  border-radius: 50%;
-  cursor: pointer;
-`
-const BackImgToggle02 = styled.div`
-  width: 1.5rem;
-  height: 1.5rem;
-  background: #fa991d;
-  border-radius: 50%;
-  cursor: pointer;
-`
-const BackImgToggle03 = styled.div`
-  width: 1.5rem;
-  height: 1.5rem;
-  background: #fa991d;
-  border-radius: 50%;
-  cursor: pointer;
-`
-const BackImgToggle04 = styled.div`
-  width: 1.5rem;
-  height: 1.5rem;
-  background: #fa991d;
-  border-radius: 50%;
-  cursor: pointer;
-`
+// const BackImgToggle01 = styled.div`
+//   width: 1.5rem;
+//   height: 1.5rem;
+//   background: #fa991d;
+//   border-radius: 50%;
+//   cursor: pointer;
+// `
+// const BackImgToggle02 = styled.div`
+//   width: 1.5rem;
+//   height: 1.5rem;
+//   background: #fa991d;
+//   border-radius: 50%;
+//   cursor: pointer;
+// `
+// const BackImgToggle03 = styled.div`
+//   width: 1.5rem;
+//   height: 1.5rem;
+//   background: #fa991d;
+//   border-radius: 50%;
+//   cursor: pointer;
+// `
+// const BackImgToggle04 = styled.div`
+//   width: 1.5rem;
+//   height: 1.5rem;
+//   background: #fa991d;
+//   border-radius: 50%;
+//   cursor: pointer;
+// `
 
 // <------------ Login zone ------------> //
 
@@ -233,7 +247,7 @@ const Logo = styled.div`
   height: 80px;
   background-size: cover;
   position: absolute;
-  right: 12vw;
+  right: 12.8vw;
   top: 10vh;
 `
 

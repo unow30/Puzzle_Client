@@ -15,7 +15,6 @@ module.exports = {
         "react"
     ],
     "rules": {
-        // "react/jsx-pascal-case" : 0
-        'react/prop-types': 'off'
+        "react/prop-types": 0
     }
 };
