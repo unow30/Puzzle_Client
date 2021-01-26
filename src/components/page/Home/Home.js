@@ -1,11 +1,11 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
 import Home_Header from '../template/Header'
 import Home_SideBar_Left from '../template/SideBarLeft'
 import Home_SideBar_Right from '../template/SideBarRight'
 import Home_Footer from '../template/Footer'
 
-import Noname from './components/noname'
+import Contents from './components/Contents'
 
 import background_img from '../../../images/background/background.jpg'
 
@@ -16,7 +16,7 @@ const Home = () => {
         <Home_Header></Home_Header>
         <Calendar_Content_Containers>
           <Home_SideBar_Left></Home_SideBar_Left>
-          <Noname></Noname>
+          <Contents />
           <Home_SideBar_Right></Home_SideBar_Right>
         </Calendar_Content_Containers>
         <Home_Footer></Home_Footer>

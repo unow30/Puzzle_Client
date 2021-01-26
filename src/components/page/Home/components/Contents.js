@@ -2,77 +2,84 @@ import React, { useState } from 'react'
 import styled from 'styled-components'
 import { Preview } from 'styled-icons/material-rounded'
 import Img from '../../../../images/icon/img.jpg'
+
 import { NewProjectModal } from './NewProjectModal'
+// import {useHistory} from 'react-router-dom'
 
-const noname = () => {
+const Contents = () => {
+  // const history=useHistory()
+
   const [showNewProject, setShowNewProject] = useState(false)
-
   const openProjectModal = () => {
     setShowNewProject(prev => !prev)
+    console.log('클릭')
   }
-
   return (
-    <Div>
-      <HomeNav>
-        <SearchBar
-          type="text"
-          placeholder="프로젝트 이름을 입력하세요."
-        ></SearchBar>
-        <Select>
-          <option selected>프로젝트 정렬</option>
-          <option>생성일</option>
-          <option>이름</option>
-        </Select>
-        <CreateBtn onClick={openProjectModal}>새 프로젝트</CreateBtn>
-      </HomeNav>
-      <Div2>
-        {/* <ProjectBox>
-          <ProjectList>
-            <ProjectListImg />
-          </ProjectList>
-          <ProjectList>
-            <ProjectListImg />
-          </ProjectList>
-          <ProjectList>
-            <ProjectListImg />
-          </ProjectList>
-          <ProjectList>
-            <ProjectListImg />
-          </ProjectList>
-          <ProjectList>
-            <ProjectListImg />
-          </ProjectList>
-          <ProjectList>
-            <ProjectListImg />
-          </ProjectList>
-          <ProjectList>
-            <ProjectListImg />
-          </ProjectList>
-          <ProjectList>
-            <ProjectListImg />
-          </ProjectList>
-        </ProjectBox> */}
-      </Div2>
+    <>
+      <Div>
+        <HomeNav>
+          <SearchBar
+            type="text"
+            placeholder="프로젝트 이름을 입력하세요."
+          ></SearchBar>
+          <Select>
+            <option selected>프로젝트 정렬</option>
+            <option>생성일</option>
+            <option>이름</option>
+          </Select>
+          <CreateBtn onClick={openProjectModal}>새 프로젝트</CreateBtn>
+          {/* <CreateBtn onClick={() => history.push('./project')}></CreateBtn> */}
+        </HomeNav>
+        <Div2>
+          <ProjectBox>
+            <ProjectList>
+              <ProjectListImg />
+            </ProjectList>
+            <ProjectList>
+              <ProjectListImg />
+            </ProjectList>
+            <ProjectList>
+              <ProjectListImg />
+            </ProjectList>
+            <ProjectList>
+              <ProjectListImg />
+            </ProjectList>
+            <ProjectList>
+              <ProjectListImg />
+            </ProjectList>
+            <ProjectList>
+              <ProjectListImg />
+            </ProjectList>
+            <ProjectList>
+              <ProjectListImg />
+            </ProjectList>
+            <ProjectList>
+              <ProjectListImg />
+            </ProjectList>
+          </ProjectBox>
+        </Div2>
+      </Div>
       <NewProjectModal
         showNewProject={showNewProject}
         setShowNewProject={setShowNewProject}
       />
-    </Div>
+    </>
   )
 }
 
-export default noname
+export default Contents
 
 // <------------ css ------------> //
 
 const Div = styled.div`
   width: calc(100vw - 500px);
+  background-color: red;
   height: 100%;
 `
 const Div2 = styled.div`
   position: relative;
-  top: 8%;
-
+  top: 15%;
+  background-color: green;
   width: calc(100vw - 500px);
   height: 85%;
   justify-content: space-between;
