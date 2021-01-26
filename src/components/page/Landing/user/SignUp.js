@@ -5,7 +5,7 @@ import axios from 'axios'
 export const SignUp = ({ setSignUp }) => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-  const [confirmPassword, setConfirmPassword] = useState('')
+  // const [confirmPassword, setConfirmPassword] = useState('')
   const [name, setName] = useState('')
   const [phone, setPhone] = useState('')
 
@@ -35,12 +35,33 @@ export const SignUp = ({ setSignUp }) => {
   }
 
   const handleSignup = e => {
-    axios.post('https://api.teampuzzle.ga:4000/user/signup', {
-      email,
-      password,
-      name,
-      phone,
-    })
+    axios
+      .post(
+        'https://api.teampuzzle.ga:4000/user/signup',
+        {
+          email,
+          password,
+          name,
+          phone,
+        },
+        {
+          headers: { 'Content-Type': 'application/json' },
+          withCredentials: true,
+        }
+      )
+      .then(res => {
+        alert('회원가입이 완료되었습니다.')
+        setSignUp(prev => !prev)
+      })
+      .catch(err => {
+        if (err.response.status === 409) {
+          //setError('모든 항목은 필수입니다.')
+          alert('동일한 이메일이 존재합니다.')
+        }
+        // if (password !== confirmPassword) {
+        //   alert('비밀번호가 일치하지 않습니다.')
+        // }
+      })
   }
   //회원가입이 완료되면 정보전달할거 만들기, 에러핸들링하기
 
@@ -59,12 +80,12 @@ export const SignUp = ({ setSignUp }) => {
           type="password"
           placeholder="Password"
         />
-        <UserInfoInput
+        {/* <UserInfoInput
           onChange={onChange}
           name="passwordConfirm"
           type="password"
           placeholder="Confirm Password"
-        />
+        /> */}
         <UserInfoInput
           onChange={onChange}
           name="name"
@@ -94,8 +115,8 @@ const UserSignUpBox = styled.div`
   align-items: center;
   justify-content: space-between;
   right: 10vw;
-  top: 35vh;
-  height: 25vh;
+  top: 40vh;
+  height: 18vh;
   background-color: transparent;
 `
 const UserInfoInput = styled.input`
@@ -122,7 +143,7 @@ const SignUpBox = styled.div`
   align-items: center;
   color: white;
   right: 10vw;
-  top: 63vh;
+  top: 62vh;
   height: 10vh;
   width: 10vw;
   background-color: transparent;

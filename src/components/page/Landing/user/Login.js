@@ -34,15 +34,13 @@ export const Login = ({ setSignUp }) => {
     axios
       .post('https://api.teampuzzle.ga:4000/user/login', {
         email,
-        password}
-      )
+        password,
+      })
       .then(res => {
-        sessionStorage.setItem("accessToken",res.data.accessToken);
+        sessionStorage.setItem('accessToken', res.data.accessToken)
         history.push('/home')
       })
-      .catch(
-        setShowLoginErrorModal(perv => !perv)
-      )
+      .catch(setShowLoginErrorModal(perv => !perv))
   }
 
   const openEmailModal = () => {
@@ -85,8 +83,8 @@ export const Login = ({ setSignUp }) => {
       />
       <FindPwModal showPwModal={showPwModal} setShowPwModal={setShowPwModal} />
       <LoginError
-      showLoginErrorModal={showLoginErrorModal}
-      setShowLoginErrorModal={setShowLoginErrorModal}
+        showLoginErrorModal={showLoginErrorModal}
+        setShowLoginErrorModal={setShowLoginErrorModal}
       ></LoginError>
     </div>
   )
