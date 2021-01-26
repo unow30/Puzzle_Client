@@ -9,23 +9,36 @@ import profileImage from '../../../images/icon/img.jpg'
 
 import PasswrodChange from './PasswordChange'
 
-const Userinfo = ({ data,showUserinfoModal, setShowUserinfoModal }) => {
-
-  const [profileimgsrc, setprofileimgsrc] = useState(profileImage)
-  const [showPasswrodChange, setShowPasswrodChange] = useState(false);
-  const [ContentEditNicknamebtn,setContentEditNicknamebtn] = useState(false);
-  const [ContentEditPhonebtn,setContentEditPhonebtn] = useState(false);
+const Userinfo = ({ data, showUserinfoModal, setShowUserinfoModal }) => {
 
   const ContentEmail = data.email
   const ContentNickName = data.name
   const ContentPhone = data.phone
   const ContentUserCode = data.usercode
-  // const [ContentEmail,setContentEmail] = useState(data.email)
-  // const [ContentNickName,setContentNickName] = useState('dawdwa')
-  // const [ContentPhone,setContentPhone] = useState('010-0000-0000')
-  // const [ContentUserCode,setContentUserCode] = useState('adsafsdlfjlskfjlkwjkl')
+  const ContentProfileImg = data.profileImg
+
+  const accessToken = sessionStorage.getItem("accessToken");
+
+  const [profileimgsrc, setprofileimgsrc] = useState(ContentProfileImg)
+  const [showPasswrodChange, setShowPasswrodChange] = useState(false);
+  const [ContentEditNicknamebtn, setContentEditNicknamebtn] = useState(false);
+  const [ContentEditPhonebtn, setContentEditPhonebtn] = useState(false);
+  const [nickname, setnickname] = useState('');
+  const [phone, setphone] = useState('');
 
   const modalRef = useRef()
+
+  const onChange = e => {
+    const {
+      target: { nickname, phone },
+    } = e
+    if (nickname === 'nickname') {
+      setnickname(value)
+    }
+    if (phone === 'password') {
+      setphone(value)
+    }
+  }
 
   const openPasswrodChange = () => {
     setShowPasswrodChange(perv => !perv)
@@ -39,27 +52,29 @@ const Userinfo = ({ data,showUserinfoModal, setShowUserinfoModal }) => {
 
   const postprofileimg = e => {
     const formData = new FormData();
-    formData.append('singup_img_upload', e.target.files[0]);
-    axios.post('https://api.teampuzzle.ga:4000/users/profile',formData,{
-      header: { 'content-type': `multipart/form-data; boundary=${formData._boundary}`},
+    formData.append('image', e.target.files[0]);
+    axios.post('https://api.teampuzzle.ga:4000/user/profile', formData, {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+        'Content-Type': 'application/json'
+      }
     }).then((res) => {
-      console.log(res.data);
+      setprofileimgsrc(res.data.url)
     })
   }
 
-  // const keyPress = useCallback(
-  //   e => {
-  //     if (e.key === 'Escape' && showUserinfoModal && showPasswrodChange === false) {
-  //       setShowUserinfoModal(false)
-  //     }
-  //   },
-  //   [setShowUserinfoModal, showUserinfoModal]
-  // )
-
-  // useEffect(() => {
-  //   document.addEventListener('keydown', keyPress)
-  //   return () => document.removeEventListener('keydown', keyPress)
-  // }, [keyPress])
+  const postModifyUserinfo = e => {
+    axios
+      .post('https://api.teampuzzle.ga:4000/user/mypage', {
+        nickname,
+        phone
+      }, {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+          'Content-Type': 'application/json'
+        }
+      })
+  }
 
   const onSubmit = async e => {
     e.preventDefault()
@@ -78,7 +93,7 @@ const Userinfo = ({ data,showUserinfoModal, setShowUserinfoModal }) => {
                 />
               </Profile_Header_Containers>
               <Profile_Img_Containers>
-                <Profile_Img src={profileimgsrc} alt='profileImg'>
+                <Profile_Img src={profileimgsrc === undefined ? ContentProfileImg : profileimgsrc} alt='profileImg'>
                 </Profile_Img>
                 <Profile_Img_Select_Containers>
                   <label htmlFor="Profile_Img_Select">
@@ -99,21 +114,21 @@ const Userinfo = ({ data,showUserinfoModal, setShowUserinfoModal }) => {
 
                     <Profile_Content_Text_Containers>
                       <Profile_Content_Text>닉네임</Profile_Content_Text>
-                      <Profile_Content_Text_Edit onClick ={() => setContentEditNicknamebtn(prev => !prev)}>{ContentEditNicknamebtn ? "취소" : "수정"}</Profile_Content_Text_Edit>
+                      <Profile_Content_Text_Edit onClick={() => setContentEditNicknamebtn(prev => !prev)}>{ContentEditNicknamebtn ? "취소" : "수정"}</Profile_Content_Text_Edit>
                     </Profile_Content_Text_Containers>
                     <Profile_Content_Change_Containers>
-                      <Profile_Content_Change ContentEditbtn={ContentEditNicknamebtn} placeholder = {ContentNickName}></Profile_Content_Change>
-                      <Profile_Content_Change_btn ContentEditbtn={ContentEditNicknamebtn}>저장</Profile_Content_Change_btn>
+                      <Profile_Content_Change ContentEditbtn={ContentEditNicknamebtn} placeholder={ContentNickName} onChange={onChange} name='nickname'></Profile_Content_Change>
+                      <Profile_Content_Change_btn ContentEditbtn={ContentEditNicknamebtn} onClick={postModifyUserinfo}>저장</Profile_Content_Change_btn>
                       <Profile_Content_Value ContentEditbtn={ContentEditNicknamebtn}>{ContentNickName}</Profile_Content_Value>
                     </Profile_Content_Change_Containers>
 
                     <Profile_Content_Text_Containers>
                       <Profile_Content_Text>휴대전화 번호</Profile_Content_Text>
-                      <Profile_Content_Text_Edit onClick ={() => setContentEditPhonebtn(prev => !prev)}>{ContentEditPhonebtn ? "취소" : "수정"}</Profile_Content_Text_Edit>
+                      <Profile_Content_Text_Edit onClick={() => setContentEditPhonebtn(prev => !prev)}>{ContentEditPhonebtn ? "취소" : "수정"}</Profile_Content_Text_Edit>
                     </Profile_Content_Text_Containers>
                     <Profile_Content_Change_Containers>
-                      <Profile_Content_Change ContentEditbtn={ContentEditPhonebtn} placeholder = {ContentPhone}></Profile_Content_Change>
-                      <Profile_Content_Change_btn ContentEditbtn={ContentEditPhonebtn}>저장</Profile_Content_Change_btn>
+                      <Profile_Content_Change ContentEditbtn={ContentEditPhonebtn} placeholder={ContentPhone} onChange={onChange} name='phone'></Profile_Content_Change>
+                      <Profile_Content_Change_btn ContentEditbtn={ContentEditPhonebtn} onClick={postModifyUserinfo}>저장</Profile_Content_Change_btn>
                       <Profile_Content_Value ContentEditbtn={ContentEditPhonebtn}>{ContentPhone}</Profile_Content_Value>
                     </Profile_Content_Change_Containers>
 
@@ -216,6 +231,7 @@ const Profile_Img = styled.img`
   height: 100px;
   width: 100px;
   border-radius: 50%;
+  object-fit: cover;
 `
 
 const Profile_Img_Select_Containers = styled.div`
@@ -289,7 +305,7 @@ const Profile_Content_Value = styled.span`
   font-weight: 500;
   font-size: 1em;
   color:white;
-  display: ${props => props.ContentEditbtn ? 'none':'block'};
+  display: ${props => props.ContentEditbtn ? 'none' : 'block'};
 `
 
 const Profile_Content_Change_Containers = styled.div`
@@ -308,7 +324,7 @@ const Profile_Content_Change = styled.input`
   border-bottom: 2px solid #FA991D;
   background-color: transparent;
   color: white;
-  display: ${props => props.ContentEditbtn ? 'block':'none'};
+  display: ${props => props.ContentEditbtn ? 'block' : 'none'};
 
   &::placeholder {
       color: #ddd;
@@ -316,7 +332,7 @@ const Profile_Content_Change = styled.input`
 `
 const Profile_Content_Change_btn = styled.button`
   float: right;
-  display: ${props => props.ContentEditbtn ? 'block':'none'};
+  display: ${props => props.ContentEditbtn ? 'block' : 'none'};
   border-radius: 5px;
   border: none;
   font-family: 'Roboto';

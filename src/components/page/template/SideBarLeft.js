@@ -7,19 +7,19 @@ export default withRouter(({ location: { pathname } }) => (
         <Puzzle_SideBar_Containers_left>
             <Puzzle_SideBar_category_ul>
                 <Puzzle_SideBar_category_li>
-                    <SLink current={pathname === "/home"} to={{pathname: "/home",state:{pathname: 'HOME'}}}> HOME </SLink>
+                    <SLink current={pathname === "/home" ? 'true' : 'false'} to={{pathname: "/home",state:{pathname: 'HOME'}}}> HOME </SLink>
                 </Puzzle_SideBar_category_li>
 
                 <Puzzle_SideBar_category_li>
-                    <SLink current={pathname === "/project"} to="/project"> PROJECT </SLink>
+                    <SLink current={pathname === "/project" ? 'true' : 'false'} to="/project"> PROJECT </SLink>
                 </Puzzle_SideBar_category_li>
 
                 <Puzzle_SideBar_category_li>
-                    <SLink current={pathname === "/puzzle"} to="/puzzle"> PUZZLE </SLink>
+                    <SLink current={pathname === "/puzzle" ? 'true' : 'false'} to="/puzzle"> PUZZLE </SLink>
                 </Puzzle_SideBar_category_li>
 
                 <Puzzle_SideBar_category_li>
-                    <SLink current={pathname === "/calendar"} to="/calendar"> CALENDAR </SLink>
+                    <SLink current={pathname === "/calendar" ? 'true' : 'false'} to="/calendar"> CALENDAR </SLink>
                 </Puzzle_SideBar_category_li>
             </Puzzle_SideBar_category_ul>
         </Puzzle_SideBar_Containers_left>
@@ -58,5 +58,5 @@ const Puzzle_SideBar_category_li = styled.li`
 const SLink = styled(Link)`
     color: white;
     &:visited{ color: white}
-    text-decoration-color: ${props => props.current ? "#FA991D" : "#21A598"}
+    text-decoration-color: ${props => props.current === 'true' ? "#FA991D" : "#21A598"}
 `

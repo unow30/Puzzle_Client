@@ -25,10 +25,7 @@ export default withRouter(({ location: { pathname } }) => {
         })
         .then(res => {
             const {data} = res.data
-
-             setData(data)
-
-            console.log(data)
+            setData(data)
         })
     }
     return(
