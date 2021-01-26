@@ -35,7 +35,7 @@ export const SignUp = ({ setSignUp }) => {
   }
 
   const handleSignup = e => {
-    axios.post('http://localhost:4000/user/signup', {
+    axios.post('https://api.teampuzzle.ga:4000/user/signup', {
       email,
       password,
       name,
