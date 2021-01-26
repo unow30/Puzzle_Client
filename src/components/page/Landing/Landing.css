@@ -30,6 +30,9 @@
   height: 40vh;
   width: 40vw;
   background-color: transparent;
+  float: right;
+  cursor: pointer;
+  margin-right: 10%;
 }
 
 .Logo {
@@ -44,6 +47,7 @@
   border-bottom: 5px solid #ef4d70;
 }
 .UserInput:focus {
+  position: relative;
   outline: none;
   text-align: center;
   justify-content: center;

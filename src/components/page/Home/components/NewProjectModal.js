@@ -2,18 +2,10 @@ import React, { useRef, useEffect, useCallback, useState } from 'react'
 import { useSpring, animated } from 'react-spring'
 import styled from 'styled-components'
 import { MdClose } from 'react-icons/md'
-import axios from 'axios'
 
-import Logo_S from '../Img/Puzzle_Logo_ Square.png'
-
-export const FindPwModal = ({ showPwModal, setShowPwModal }) => {
+export const NewProjectModal = ({ showEmailModal, setShowEmailModal }) => {
   const modalRef = useRef()
   const [find, setFind] = useState(false)
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-  // const [confirmPassword, setConfirmPassword] = useState('')
-  const [name, setName] = useState('')
-  const [phone, setPhone] = useState('')
 
   const onFind = e => {
     setFind(prev => !prev)
@@ -24,23 +16,23 @@ export const FindPwModal = ({ showPwModal, setShowPwModal }) => {
     config: {
       duration: 250,
     },
-    opacity: showPwModal ? 1 : 0,
-    transform: showPwModal ? `translateY(0%)` : `translateY(-100%)`,
+    opacity: showEmailModal ? 1 : 0,
+    transform: showEmailModal ? `translateY(0%)` : `translateY(-100%)`,
   })
 
   const closeModal = e => {
     if (modalRef.current === e.target) {
-      setShowPwModal(false)
+      setShowEmailModal(false)
     }
   }
 
   const keyPress = useCallback(
     e => {
-      if (e.key === 'Escape' && showPwModal) {
-        setShowPwModal(false)
+      if (e.key === 'Escape' && showEmailModal) {
+        setShowEmailModal(false)
       }
     },
-    [setShowPwModal, showPwModal]
+    [setShowEmailModal, showEmailModal]
   )
 
   useEffect(() => {
@@ -52,86 +44,34 @@ export const FindPwModal = ({ showPwModal, setShowPwModal }) => {
     e.preventDefault()
   }
 
-  const onChange = e => {
-    const {
-      target: { name, value },
-    } = e
-    if (name === 'name') {
-      setName(value)
-    }
-    if (name === 'email') {
-      setEmail(value)
-    }
-    if (name === 'tel') {
-      setPhone(value)
-    }
-  }
-
-  const findEmail = e => {
-    axios
-      .post('https://api.teampuzzle.ga:4000/user/findemail', {
-        name,
-        phone,
-      })
-      .then(res => {
-        setEmail(`당신의 이메일은 : ${res.data.data}입니다.`)
-        setFind(prev => !prev)
-        e.preventDefault()
-      })
-      .catch(err => {
-        setFind(prev => !prev)
-        e.preventDefault()
-        setEmail(`일치하는 이메일이 없습니다.`)
-      })
-  }
-
   return (
     <>
-      {showPwModal ? (
+      {showEmailModal ? (
         <Background onClick={closeModal} ref={modalRef}>
           <animated.div style={animation}>
-            <ModalWrapper showPwModal={showPwModal}>
-              <EmailP>PW 찾기</EmailP>
+            <ModalWrapper showEmailModal={showEmailModal}>
+              <EmailP>Email 찾기</EmailP>
               <Logo src={Logo_S} />
               {find ? (
                 <>
                   <UserInfoBox>
-                    <UserInfoInput type="text" placeholder="New Password" />
-                    <UserInfoInput
-                      type="text"
-                      placeholder="Confirm New Password"
-                    />
+                    <UserInfo> 당신의 이메일은 ~~ 입니다!!.</UserInfo>
+                    <UserInfo> 당신의 이메일은 ~~ 입니다.</UserInfo>
                   </UserInfoBox>
-                  <Findbtn onClick={onFind}>확인</Findbtn>
+                  <Findbtn onClick={onFind}>뒤로가기</Findbtn>
                 </>
               ) : (
                 <>
                   <UserInfoBox>
-                    <UserInfoInput
-                      onChange={onChange}
-                      name="name"
-                      type="text"
-                      placeholder="Name"
-                    />
-                    <UserInfoInput
-                      onChange={onChange}
-                      name="email"
-                      type="email"
-                      placeholder="Email"
-                    />
-                    <UserInfoInput
-                      onChange={onChange}
-                      name="tel"
-                      type="text"
-                      placeholder="Phone"
-                    />
+                    <UserInfoInput type="email" placeholder="Email" />
+                    <UserInfoInput type="text" placeholder="Phone" />
                   </UserInfoBox>
-                  <Findbtn onClick={onFind}>변경</Findbtn>
+                  <Findbtn onClick={onFind}>찾기</Findbtn>
                 </>
               )}
               <CloseModalButton
                 aria-label="Close modal"
-                onClick={() => setShowPwModal(prev => !prev)}
+                onClick={() => setShowEmailModal(prev => !prev)}
               />
             </ModalWrapper>
           </animated.div>
