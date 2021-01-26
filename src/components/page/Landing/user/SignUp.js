@@ -58,12 +58,12 @@ export const SignUp = ({ setSignUp }) => {
           //setError('모든 항목은 필수입니다.')
           alert('동일한 이메일이 존재합니다.')
         }
-        // if (password !== confirmPassword) {
-        //   alert('비밀번호가 일치하지 않습니다.')
-        // }
+        if (err.response.status === 404) {
+          alert('모든 항목은 필수입니다.')
+        }
       })
   }
-  //회원가입이 완료되면 정보전달할거 만들기, 에러핸들링하기
+  // 항목이 하나라도 안들어오면 로그인 안되는거 해주세요
 
   return (
     <>
