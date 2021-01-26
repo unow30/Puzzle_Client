@@ -33,7 +33,6 @@ export const FindPwModal = ({ showPwModal, setShowPwModal }) => {
     e => {
       if (e.key === 'Escape' && showPwModal) {
         setShowPwModal(false)
-        console.log('I pressed')
       }
     },
     [setShowPwModal, showPwModal]

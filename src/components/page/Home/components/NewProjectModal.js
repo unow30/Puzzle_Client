@@ -2,34 +2,14 @@ import React, { useRef, useEffect, useCallback, useState } from 'react'
 import { useSpring, animated } from 'react-spring'
 import styled from 'styled-components'
 import { MdClose } from 'react-icons/md'
-import axios from 'axios'
 
-import Logo_S from '../Img/Puzzle_Logo_ Square.png'
-
-export const FindEamilModal = ({ showEmailModal, setShowEmailModal }) => {
+export const NewProjectModal = ({ showEmailModal, setShowEmailModal }) => {
   const modalRef = useRef()
   const [find, setFind] = useState(false)
-  const [name, setName] = useState('')
-  const [phone, setPhone] = useState('')
-  const [email, setEmail] = useState('')
 
   const onFind = e => {
     setFind(prev => !prev)
     e.preventDefault()
-  }
-
-  const findEmail = async () => {
-    await axios
-      .post('https://api.teampuzzle.ga:4000/user/email', {
-        name,
-        phone,
-      })
-      .then(data => {
-        setEmail(`당신의 이메일은 : ${data.data.email}`)
-        setFind(prev => !prev)
-        e.preventDefault()
-      })
-      .catch(() => setEmail('일치하는 이메일이 없습니다.'))
   }
 
   const animation = useSpring({
@@ -60,21 +40,8 @@ export const FindEamilModal = ({ showEmailModal, setShowEmailModal }) => {
     return () => document.removeEventListener('keydown', keyPress)
   }, [keyPress])
 
-  // const onSubmit = async e => {
-  //   e.preventDefault()
-  // }
-  const onChange = e => {
-    const {
-      target: { name, value },
-    } = e
-
-    if (name === 'name') {
-      setName(value)
-    }
-    if (name === 'tel') {
-      setPhone(value)
-    }
-    console.log(e.target.value)
+  const onSubmit = async e => {
+    e.preventDefault()
   }
 
   return (
@@ -88,27 +55,18 @@ export const FindEamilModal = ({ showEmailModal, setShowEmailModal }) => {
               {find ? (
                 <>
                   <UserInfoBox>
-                    <UserInfo> {email}</UserInfo>
+                    <UserInfo> 당신의 이메일은 ~~ 입니다!!.</UserInfo>
+                    <UserInfo> 당신의 이메일은 ~~ 입니다.</UserInfo>
                   </UserInfoBox>
                   <Findbtn onClick={onFind}>뒤로가기</Findbtn>
                 </>
               ) : (
                 <>
                   <UserInfoBox>
-                    <UserInfoInput
-                      onChange={onChange}
-                      name="name"
-                      type="text"
-                      placeholder="Name"
-                    />
-                    <UserInfoInput
-                      onChange={onChange}
-                      name="tel"
-                      type="text"
-                      placeholder="Phone"
-                    />
+                    <UserInfoInput type="email" placeholder="Email" />
+                    <UserInfoInput type="text" placeholder="Phone" />
                   </UserInfoBox>
-                  <Findbtn onClick={findEmail}>찾기</Findbtn>
+                  <Findbtn onClick={onFind}>찾기</Findbtn>
                 </>
               )}
               <CloseModalButton
