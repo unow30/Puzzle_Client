@@ -1,5 +1,6 @@
 import React, { useRef, useEffect, useCallback, useState } from 'react'
 import styled from 'styled-components'
+import axios from 'axios';
 
 import { Close } from '@styled-icons/evaicons-solid/Close'
 import { Camera } from '@styled-icons/fa-solid/Camera'
@@ -8,17 +9,21 @@ import profileImage from '../../../images/icon/img.jpg'
 
 import PasswrodChange from './PasswordChange'
 
-const Userinfo = ({ showUserinfoModal, setShowUserinfoModal }) => {
+const Userinfo = ({ data,showUserinfoModal, setShowUserinfoModal }) => {
 
   const [profileimgsrc, setprofileimgsrc] = useState(profileImage)
   const [showPasswrodChange, setShowPasswrodChange] = useState(false);
   const [ContentEditNicknamebtn,setContentEditNicknamebtn] = useState(false);
   const [ContentEditPhonebtn,setContentEditPhonebtn] = useState(false);
 
-  const [ContentEmail,setContentEmail] = useState('email@naver.com')
-  const [ContentNickName,setContentNickName] = useState('김코딩')
-  const [ContentPhone,setContentPhone] = useState('010-0000-0000')
-  const [ContentUserCode,setContentUserCode] = useState('adsafsdlfjlskfjlkwjkl')
+  const ContentEmail = data.email
+  const ContentNickName = data.name
+  const ContentPhone = data.phone
+  const ContentUserCode = data.usercode
+  // const [ContentEmail,setContentEmail] = useState(data.email)
+  // const [ContentNickName,setContentNickName] = useState('dawdwa')
+  // const [ContentPhone,setContentPhone] = useState('010-0000-0000')
+  // const [ContentUserCode,setContentUserCode] = useState('adsafsdlfjlskfjlkwjkl')
 
   const modalRef = useRef()
 
@@ -30,6 +35,16 @@ const Userinfo = ({ showUserinfoModal, setShowUserinfoModal }) => {
     if (modalRef.current === e.target) {
       setShowUserinfoModal(false)
     }
+  }
+
+  const postprofileimg = e => {
+    const formData = new FormData();
+    formData.append('singup_img_upload', e.target.files[0]);
+    axios.post('https://api.teampuzzle.ga:4000/users/profile',formData,{
+      header: { 'content-type': `multipart/form-data; boundary=${formData._boundary}`},
+    }).then((res) => {
+      console.log(res.data);
+    })
   }
 
   // const keyPress = useCallback(
@@ -69,7 +84,7 @@ const Userinfo = ({ showUserinfoModal, setShowUserinfoModal }) => {
                   <label htmlFor="Profile_Img_Select">
                     <Profile_Img_Select></Profile_Img_Select>
                   </label>
-                  <Profile_Img_Uploader type="file" name="ProfileImageUplodaer" id="Profile_Img_Select" accept="image/jpg,impge/png,image/jpeg,image/gif"></Profile_Img_Uploader>
+                  <Profile_Img_Uploader type="file" name="image" id="Profile_Img_Select" onChange={postprofileimg} accept="image/jpg,impge/png,image/jpeg,image/gif"></Profile_Img_Uploader>
                 </Profile_Img_Select_Containers>
               </Profile_Img_Containers>
               <Profile_Content_Containers>

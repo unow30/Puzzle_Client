@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { withRouter } from "react-router-dom";
 import styled from 'styled-components';
+import axios from 'axios';
 import Puzzle_logo from '../../../images/logo/Puzzle_Logo_Circle.png'
 import { UserCircle } from '@styled-icons/boxicons-solid/UserCircle'
 
@@ -9,9 +10,26 @@ import Userinfo from '../template/Userinfo'
 
 export default withRouter(({ location: { pathname } }) => {
     const [showUserinfoModal, setShowUserinfoModal] = useState(false);
+    const [data,setData] = useState({})
+    const accessToken = sessionStorage.getItem("accessToken");
 
     const openUserinfoModal = () => {
         setShowUserinfoModal(perv => !perv)
+        axios
+        .get('https://api.teampuzzle.ga:4000/user/userinfo',{
+            headers:{
+                Authorization: `Bearer ${accessToken}`,
+                'Content-Type': 'application/json'
+            },
+            withCredentials: true
+        })
+        .then(res => {
+            const {data} = res.data
+
+             setData(data)
+
+            console.log(data)
+        })
     }
     return(
     <>
@@ -20,9 +38,10 @@ export default withRouter(({ location: { pathname } }) => {
             <Puzzle_Header_title>{pathname.replace('/', '').toUpperCase()}</Puzzle_Header_title>
             <Puzzle_Header_Userinfo onClick={openUserinfoModal}></Puzzle_Header_Userinfo>
             <Userinfo
+                data={data}
                 showUserinfoModal={showUserinfoModal}
                 setShowUserinfoModal={setShowUserinfoModal}
-            />
+            ></Userinfo>
         </Puzzle_Header_Containers>
     </>
 )});
