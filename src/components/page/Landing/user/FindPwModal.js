@@ -9,6 +9,11 @@ import Logo_S from '../Img/Puzzle_Logo_ Square.png'
 export const FindPwModal = ({ showPwModal, setShowPwModal }) => {
   const modalRef = useRef()
   const [find, setFind] = useState(false)
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  // const [confirmPassword, setConfirmPassword] = useState('')
+  const [name, setName] = useState('')
+  const [phone, setPhone] = useState('')
 
   const onFind = e => {
     setFind(prev => !prev)
@@ -47,6 +52,39 @@ export const FindPwModal = ({ showPwModal, setShowPwModal }) => {
     e.preventDefault()
   }
 
+  const onChange = e => {
+    const {
+      target: { name, value },
+    } = e
+    if (name === 'name') {
+      setName(value)
+    }
+    if (name === 'email') {
+      setEmail(value)
+    }
+    if (name === 'tel') {
+      setPhone(value)
+    }
+  }
+
+  const findEmail = e => {
+    axios
+      .post('https://api.teampuzzle.ga:4000/user/findemail', {
+        name,
+        phone,
+      })
+      .then(res => {
+        setEmail(`당신의 이메일은 : ${res.data.data}입니다.`)
+        setFind(prev => !prev)
+        e.preventDefault()
+      })
+      .catch(err => {
+        setFind(prev => !prev)
+        e.preventDefault()
+        setEmail(`일치하는 이메일이 없습니다.`)
+      })
+  }
+
   return (
     <>
       {showPwModal ? (
@@ -69,11 +107,26 @@ export const FindPwModal = ({ showPwModal, setShowPwModal }) => {
               ) : (
                 <>
                   <UserInfoBox>
-                    <UserInfoInput type="text" placeholder="Name" />
-                    <UserInfoInput type="email" placeholder="Email" />
-                    <UserInfoInput type="text" placeholder="Phone" />
+                    <UserInfoInput
+                      onChange={onChange}
+                      name="name"
+                      type="text"
+                      placeholder="Name"
+                    />
+                    <UserInfoInput
+                      onChange={onChange}
+                      name="email"
+                      type="email"
+                      placeholder="Email"
+                    />
+                    <UserInfoInput
+                      onChange={onChange}
+                      name="tel"
+                      type="text"
+                      placeholder="Phone"
+                    />
                   </UserInfoBox>
-                  <Findbtn onClick={onFind}>찾기</Findbtn>
+                  <Findbtn onClick={onFind}>변경</Findbtn>
                 </>
               )}
               <CloseModalButton

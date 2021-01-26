@@ -15,21 +15,24 @@ export const FindEamilModal = ({ showEmailModal, setShowEmailModal }) => {
 
   const onFind = e => {
     setFind(prev => !prev)
-    e.preventDefault()
   }
 
-  const findEmail = async () => {
-    await axios
-      .post('https://api.teampuzzle.ga:4000/user/email', {
+  const findEmail = e => {
+    axios
+      .post('https://api.teampuzzle.ga:4000/user/findemail', {
         name,
         phone,
       })
-      .then(data => {
-        setEmail(`당신의 이메일은 : ${data.data.email}`)
+      .then(res => {
+        setEmail(`당신의 이메일은 : ${res.data.data}입니다.`)
         setFind(prev => !prev)
         e.preventDefault()
       })
-      .catch(() => setEmail('일치하는 이메일이 없습니다.'))
+      .catch(err => {
+        setFind(prev => !prev)
+        e.preventDefault()
+        setEmail(`일치하는 이메일이 없습니다.`)
+      })
   }
 
   const animation = useSpring({
@@ -74,7 +77,6 @@ export const FindEamilModal = ({ showEmailModal, setShowEmailModal }) => {
     if (name === 'tel') {
       setPhone(value)
     }
-    console.log(e.target.value)
   }
 
   return (

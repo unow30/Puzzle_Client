@@ -6,11 +6,14 @@ import { useHistory } from 'react-router-dom'
 import { FindEamilModal } from './FindEmailModal'
 import { FindPwModal } from './FindPwModal'
 
+import LoginError from './LoginError'
+
 export const Login = ({ setSignUp }) => {
   const history = useHistory()
 
   const [showEmailModal, setShowEmailModal] = useState(false)
   const [showPwModal, setShowPwModal] = useState(false)
+  const [showLoginErrorModal, setShowLoginErrorModal] = useState(false)
 
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -29,11 +32,15 @@ export const Login = ({ setSignUp }) => {
 
   const handleLogin = e => {
     axios
-      .post('http://localhost:4000/user/login', {
+      .post('https://api.teampuzzle.ga:4000/user/login', {
         email,
         password,
       })
-      .then(res => history.push('/home'))
+      .then(res => {
+        sessionStorage.setItem('accessToken', res.data.accessToken)
+        history.push('/home')
+      })
+      .catch(setShowLoginErrorModal(perv => !perv))
   }
 
   const openEmailModal = () => {
@@ -75,6 +82,10 @@ export const Login = ({ setSignUp }) => {
         setShowEmailModal={setShowEmailModal}
       />
       <FindPwModal showPwModal={showPwModal} setShowPwModal={setShowPwModal} />
+      <LoginError
+        showLoginErrorModal={showLoginErrorModal}
+        setShowLoginErrorModal={setShowLoginErrorModal}
+      ></LoginError>
     </div>
   )
 }
