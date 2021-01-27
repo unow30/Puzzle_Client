@@ -5,37 +5,42 @@ import axios from 'axios';
 import { Close } from '@styled-icons/evaicons-solid/Close'
 import { Camera } from '@styled-icons/fa-solid/Camera'
 
-import profileImage from '../../../images/icon/img.jpg'
-
 import PasswrodChange from './PasswordChange'
 
 const Userinfo = ({ data, showUserinfoModal, setShowUserinfoModal }) => {
 
-  const ContentEmail = data.email
-  const ContentNickName = data.name
-  const ContentPhone = data.phone
-  const ContentUserCode = data.usercode
-  const ContentProfileImg = data.profileImg
+  const viewemail = data.email;
+  const viewname = data.name;
+  const viewphone = data.phone;
+  const viewusercode = data.usercode;
+  const viewprofileImg = data.profileImg;
 
   const accessToken = sessionStorage.getItem("accessToken");
 
-  const [profileimgsrc, setprofileimgsrc] = useState(ContentProfileImg)
   const [showPasswrodChange, setShowPasswrodChange] = useState(false);
   const [ContentEditNicknamebtn, setContentEditNicknamebtn] = useState(false);
   const [ContentEditPhonebtn, setContentEditPhonebtn] = useState(false);
-  const [nickname, setnickname] = useState('');
-  const [phone, setphone] = useState('');
+
+  const [profileImg, setprofileImg] = useState(viewprofileImg);
+  const [name, setname] = useState(viewname);
+  const [phone, setphone] = useState(viewphone);
 
   const modalRef = useRef()
 
-  const onChange = e => {
+  const onChangeModifyName = e => {
     const {
-      target: { nickname, phone },
+      target: { name, value },
     } = e
-    if (nickname === 'nickname') {
-      setnickname(value)
+    if (name === 'ModifyNickname') {
+      setname(value);
     }
-    if (phone === 'password') {
+  }
+
+  const onChangeModifyPhone = e => {
+    const {
+      target: { name, value },
+    } = e
+    if (name === 'ModifyPhone') {
       setphone(value)
     }
   }
@@ -58,21 +63,39 @@ const Userinfo = ({ data, showUserinfoModal, setShowUserinfoModal }) => {
         Authorization: `Bearer ${accessToken}`,
         'Content-Type': 'application/json'
       }
-    }).then((res) => {
-      setprofileimgsrc(res.data.url)
+    })
+    .then(res => {
+      setprofileImg(res.data.url)
     })
   }
 
-  const postModifyUserinfo = e => {
+  const postModifyNickname = e => {
     axios
-      .post('https://api.teampuzzle.ga:4000/user/mypage', {
-        nickname,
+      .post('https://api.teampuzzle.ga:4000/user/useredit', {
+        name
+      }, {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+          'Content-Type': 'application/json'
+        }
+      })
+      .then(res => {
+        setContentEditNicknamebtn(prev => !prev);
+      })
+  }
+
+  const postModifyPhone = e => {
+    axios
+      .post('https://api.teampuzzle.ga:4000/user/useredit', {
         phone
       }, {
         headers: {
           Authorization: `Bearer ${accessToken}`,
           'Content-Type': 'application/json'
         }
+      })
+      .then(res => {
+        setContentEditPhonebtn(prev => !prev);
       })
   }
 
@@ -93,7 +116,7 @@ const Userinfo = ({ data, showUserinfoModal, setShowUserinfoModal }) => {
                 />
               </Profile_Header_Containers>
               <Profile_Img_Containers>
-                <Profile_Img src={profileimgsrc === undefined ? ContentProfileImg : profileimgsrc} alt='profileImg'>
+                <Profile_Img src={profileImg === undefined ? viewprofileImg : profileImg} alt='profileImg'>
                 </Profile_Img>
                 <Profile_Img_Select_Containers>
                   <label htmlFor="Profile_Img_Select">
@@ -109,7 +132,7 @@ const Userinfo = ({ data, showUserinfoModal, setShowUserinfoModal }) => {
                       <Profile_Content_Text>이메일</Profile_Content_Text>
                     </Profile_Content_Text_Containers>
                     <Profile_Content_Change_Containers>
-                      <Profile_Content_Value>{ContentEmail}</Profile_Content_Value>
+                      <Profile_Content_Value>{viewemail}</Profile_Content_Value>
                     </Profile_Content_Change_Containers>
 
                     <Profile_Content_Text_Containers>
@@ -117,9 +140,9 @@ const Userinfo = ({ data, showUserinfoModal, setShowUserinfoModal }) => {
                       <Profile_Content_Text_Edit onClick={() => setContentEditNicknamebtn(prev => !prev)}>{ContentEditNicknamebtn ? "취소" : "수정"}</Profile_Content_Text_Edit>
                     </Profile_Content_Text_Containers>
                     <Profile_Content_Change_Containers>
-                      <Profile_Content_Change ContentEditbtn={ContentEditNicknamebtn} placeholder={ContentNickName} onChange={onChange} name='nickname'></Profile_Content_Change>
-                      <Profile_Content_Change_btn ContentEditbtn={ContentEditNicknamebtn} onClick={postModifyUserinfo}>저장</Profile_Content_Change_btn>
-                      <Profile_Content_Value ContentEditbtn={ContentEditNicknamebtn}>{ContentNickName}</Profile_Content_Value>
+                      <Profile_Content_Change ContentEditbtn={ContentEditNicknamebtn} placeholder={name === undefined ? viewname : name} onChange={onChangeModifyName} name='ModifyNickname'></Profile_Content_Change>
+                      <Profile_Content_Change_btn ContentEditbtn={ContentEditNicknamebtn} onClick={postModifyNickname}>저장</Profile_Content_Change_btn>
+                      <Profile_Content_Value ContentEditbtn={ContentEditNicknamebtn}>{name === undefined ? viewname : name}</Profile_Content_Value>
                     </Profile_Content_Change_Containers>
 
                     <Profile_Content_Text_Containers>
@@ -127,16 +150,16 @@ const Userinfo = ({ data, showUserinfoModal, setShowUserinfoModal }) => {
                       <Profile_Content_Text_Edit onClick={() => setContentEditPhonebtn(prev => !prev)}>{ContentEditPhonebtn ? "취소" : "수정"}</Profile_Content_Text_Edit>
                     </Profile_Content_Text_Containers>
                     <Profile_Content_Change_Containers>
-                      <Profile_Content_Change ContentEditbtn={ContentEditPhonebtn} placeholder={ContentPhone} onChange={onChange} name='phone'></Profile_Content_Change>
-                      <Profile_Content_Change_btn ContentEditbtn={ContentEditPhonebtn} onClick={postModifyUserinfo}>저장</Profile_Content_Change_btn>
-                      <Profile_Content_Value ContentEditbtn={ContentEditPhonebtn}>{ContentPhone}</Profile_Content_Value>
+                      <Profile_Content_Change ContentEditbtn={ContentEditPhonebtn} placeholder={phone === undefined ? viewphone : phone} onChange={onChangeModifyPhone} name='ModifyPhone'></Profile_Content_Change>
+                      <Profile_Content_Change_btn ContentEditbtn={ContentEditPhonebtn} onClick={postModifyPhone}>저장</Profile_Content_Change_btn>
+                      <Profile_Content_Value ContentEditbtn={ContentEditPhonebtn}>{phone === undefined ? viewphone : phone}</Profile_Content_Value>
                     </Profile_Content_Change_Containers>
 
                     <Profile_Content_Text_Containers>
                       <Profile_Content_Text>유저 코드</Profile_Content_Text>
                     </Profile_Content_Text_Containers>
                     <Profile_Content_Change_Containers>
-                      <Profile_Content_Value>{ContentUserCode}</Profile_Content_Value>
+                      <Profile_Content_Value>{viewusercode}</Profile_Content_Value>
                     </Profile_Content_Change_Containers>
 
                     <Profile_Content_Text_Containers>

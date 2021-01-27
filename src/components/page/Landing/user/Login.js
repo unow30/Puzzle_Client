@@ -40,7 +40,9 @@ export const Login = ({ setSignUp }) => {
         sessionStorage.setItem('accessToken', res.data.accessToken)
         history.push('/home')
       })
-      .catch(setShowLoginErrorModal(perv => !perv))
+      .catch(err => {
+        setShowLoginErrorModal(perv => !perv)
+      })
   }
 
   const openEmailModal = () => {
