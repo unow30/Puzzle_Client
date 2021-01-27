@@ -2,6 +2,8 @@ import React, { useState } from 'react'
 import styled from 'styled-components'
 import { Preview } from 'styled-icons/material-rounded'
 import Img from '../../../../images/icon/img.jpg'
+import { BiSearch } from 'react-icons/bi'
+import axios from 'axios'
 
 import { NewProjectModal } from './NewProjectModal'
 // import {useHistory} from 'react-router-dom'
@@ -14,14 +16,25 @@ const Contents = () => {
     setShowNewProject(prev => !prev)
     console.log('클릭')
   }
+
+  const test = () => {
+    axios
+      .get('https://api.teampuzzle.ga:4000/project/:id')
+      .then(res => console.log(res.data))
+      .catch(err => console.log(err))
+  }
+
   return (
     <>
       <Div>
         <HomeNav>
-          <SearchBar
-            type="text"
-            placeholder="프로젝트 이름을 입력하세요."
-          ></SearchBar>
+          <SearchBarBox>
+            <SearchBar
+              type="text"
+              placeholder="프로젝트 이름을 입력하세요."
+            ></SearchBar>
+            <SerachButton />
+          </SearchBarBox>
           <Select>
             <option selected>프로젝트 정렬</option>
             <option>생성일</option>
@@ -31,6 +44,7 @@ const Contents = () => {
           {/* <CreateBtn onClick={() => history.push('./project')}></CreateBtn> */}
         </HomeNav>
         <Div2>
+          <button onClick={test}>테스트</button>
           <ProjectBox>
             <ProjectList>
               <ProjectListImg />
@@ -73,13 +87,13 @@ export default Contents
 
 const Div = styled.div`
   width: calc(100vw - 500px);
-  background-color: red;
+  // background-color: red;
   height: 100%;
 `
 const Div2 = styled.div`
   position: relative;
   top: 15%;
-  background-color: green;
+  // background-color: green;
   width: calc(100vw - 500px);
   height: 85%;
   justify-content: space-between;
@@ -93,13 +107,24 @@ const HomeNav = styled.div`
   width: 20vw;
   float: right;
 `
-const SearchBar = styled.input`
+const SearchBarBox = styled.div`
   background-color: #afafaf;
-  border: transparent;
   border-radius: 50px;
-  padding: 10px;
   color: white;
-  width: 8vw;
+  width: 12vw;
+  display: flex;
+  justify-content: space-around;
+  justify-content: center;
+  align-items: center;
+  margin-right: 10px;
+`
+
+const SearchBar = styled.input`
+  border: transparent;
+  padding: 8px;
+  background-color: transparent;
+
+  width: 7vw;
   &:focus {
     outline: none;
   }
@@ -118,7 +143,7 @@ const Select = styled.select`
   padding-left: 10px;
   font-size: 14px;
   border: none;
-
+  margin-right: 10px;
   &:focus {
     outline: none;
   }
@@ -170,4 +195,12 @@ const ProjectListImg = styled.div`
   background-size: cover;
   background-color: white;
   margin: 25% 25%;
+`
+
+const SerachButton = styled(BiSearch)`
+  cursor: pointer;
+  width: 25px;
+  height: 25px;
+  padding: 0;
+  color: white;
 `
