@@ -1,38 +1,41 @@
 import React, { useRef, useEffect, useCallback, useState } from 'react'
 import { useSpring, animated } from 'react-spring'
 import styled from 'styled-components'
+import Img from '../../../../images/icon/img.jpg'
 import { MdClose } from 'react-icons/md'
+import axios from 'axios'
 
-export const NewProjectModal = ({ showEmailModal, setShowEmailModal }) => {
+export const NewProjectModal = ({ showNewProject, setShowNewProject }) => {
   const modalRef = useRef()
-  const [find, setFind] = useState(false)
+  const [addMember, setAddMember] = useState(false)
+  const [currMem, setCurrMem] = useState('김코딩')
+  // const [currMem, setCurrMem] = useState(['김코딩'])
 
-  const onFind = e => {
-    setFind(prev => !prev)
-    e.preventDefault()
+  const addMemberHandle = () => {
+    setAddMember(prev => !prev)
   }
 
   const animation = useSpring({
     config: {
       duration: 250,
     },
-    opacity: showEmailModal ? 1 : 0,
-    transform: showEmailModal ? `translateY(0%)` : `translateY(-100%)`,
+    opacity: showNewProject ? 1 : 0,
+    transform: showNewProject ? `translateY(0%)` : `translateY(-100%)`,
   })
 
   const closeModal = e => {
     if (modalRef.current === e.target) {
-      setShowEmailModal(false)
+      setShowNewProject(false)
     }
   }
 
   const keyPress = useCallback(
     e => {
-      if (e.key === 'Escape' && showEmailModal) {
-        setShowEmailModal(false)
+      if (e.key === 'Escape' && showNewProject) {
+        setShowNewProject(false)
       }
     },
-    [setShowEmailModal, showEmailModal]
+    [setShowNewProject, showNewProject]
   )
 
   useEffect(() => {
@@ -40,41 +43,73 @@ export const NewProjectModal = ({ showEmailModal, setShowEmailModal }) => {
     return () => document.removeEventListener('keydown', keyPress)
   }, [keyPress])
 
-  const onSubmit = async e => {
-    e.preventDefault()
+  // const onSubmit = async e => {
+  //   e.preventDefault()
+  // }
+  const onChange = e => {
+    const {
+      target: { name, value },
+    } = e
+
+    if (name === 'name') {
+      setName(value)
+    }
+    if (name === 'tel') {
+      setPhone(value)
+    }
   }
 
   return (
     <>
-      {showEmailModal ? (
+      {showNewProject ? (
         <Background onClick={closeModal} ref={modalRef}>
           <animated.div style={animation}>
-            <ModalWrapper showEmailModal={showEmailModal}>
-              <EmailP>Email 찾기</EmailP>
-              <Logo src={Logo_S} />
-              {find ? (
-                <>
-                  <UserInfoBox>
-                    <UserInfo> 당신의 이메일은 ~~ 입니다!!.</UserInfo>
-                    <UserInfo> 당신의 이메일은 ~~ 입니다.</UserInfo>
-                  </UserInfoBox>
-                  <Findbtn onClick={onFind}>뒤로가기</Findbtn>
-                </>
-              ) : (
-                <>
-                  <UserInfoBox>
-                    <UserInfoInput type="email" placeholder="Email" />
-                    <UserInfoInput type="text" placeholder="Phone" />
-                  </UserInfoBox>
-                  <Findbtn onClick={onFind}>찾기</Findbtn>
-                </>
-              )}
+            <ModalWrapper showNewProject={showNewProject}>
+              <Title>프로젝트 생성</Title>
+              <ProjectListImg />
+              <ProjectInfoBox>
+                <ProjectInfo
+                  onChange={onChange}
+                  name="project"
+                  type="text"
+                  placeholder="프로젝트 이름"
+                />
+                <ProjectInfo
+                  onChange={onChange}
+                  name="project"
+                  type="text"
+                  placeholder="프로젝트 내용"
+                />
+              </ProjectInfoBox>
+
+              <ProjectMemberInfo>프로젝트 인원</ProjectMemberInfo>
+              <AddMemberbtn onClick={addMemberHandle}>멤버 추가</AddMemberbtn>
+              <div>
+                {addMember ? (
+                  <>
+                    <AddMemberInfo
+                      onChange={onChange}
+                      name="usercode"
+                      type="text"
+                      placeholder="Usercode를 입력해주세요. "
+                    />
+                    <AddUserCodebtn>추가</AddUserCodebtn>
+                  </>
+                ) : null}
+              </div>
+
+              <CurrMemBox>
+                <CurrMem>{currMem}</CurrMem>
+              </CurrMemBox>
+
               <CloseModalButton
                 aria-label="Close modal"
-                onClick={() => setShowEmailModal(prev => !prev)}
+                onClick={() => setShowNewProject(prev => !prev)}
               />
+              <CreateProjectbtnBox></CreateProjectbtnBox>
             </ModalWrapper>
           </animated.div>
+          <CreateProjectbtn>프로젝트 생성</CreateProjectbtn>
         </Background>
       ) : null}
     </>
@@ -82,45 +117,87 @@ export const NewProjectModal = ({ showEmailModal, setShowEmailModal }) => {
 }
 
 const Background = styled.div`
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.8);
+  background: rgba(0, 0, 0, 0.5);
+  border-radius: 10px;
   position: fixed;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  left: 35%;
+  top: 30%;
 `
 
 const ModalWrapper = styled.div`
   width: 800px;
-  height: 500px;
+  height: 700px;
   box-shadow: 0 5px 16px rgba(0, 0, 0, 0.2);
-  background: #141414;
+  background: #052439;
   position: relative;
   z-index: 10;
   border-radius: 10px;
-  
-  
-}
+  overflow-x: auto;
+  overflow-y: scroll;
+  &::-webkit-scrollbar {
+    /* 세로 스크롤 넓이 */
+    width: 12px;
+
+    border-radius: 6px;
+    background: rgba(255, 255, 255, 0.4);
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.3);
+    border-radius: 6px;
+  }
 `
 
 const CloseModalButton = styled(MdClose)`
   cursor: pointer;
   position: absolute;
   top: 20px;
-  right: 20px;
+  left: 20px;
   width: 32px;
   height: 32px;
   padding: 0;
   z-index: 10;
   color: white;
 `
-const UserInfoInput = styled.input`
+
+const Title = styled.div`
+  font-size: 2rem;
+  color: white;
+  text-align: center;
+  padding-top: 40px;
+  padding-bottom: 40px;
+  margin: 0 auto;
+`
+const ProjectListImg = styled.div`
+  background-image: url(${Img});
+  width: 150px;
+  height: 150px;
+  border-radius: 5%;
+  background-size: cover;
+  background-color: white;
+  margin: 0 auto;
+`
+const StyledAlwaysScrollSection = styled.div`
+  overflow: scroll;
+  &::-webkit-scrollbar {
+    /* 세로 스크롤 넓이 */
+    width: 8px;
+
+    /* 가로 스크롤 높이 */
+    height: 8px;
+
+    border-radius: 6px;
+    background: rgba(255, 255, 255, 0.4);
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.3);
+    border-radius: 6px;
+  }
+`
+const ProjectInfo = styled.input`
   background-color: transparent;
   border: transparent;
-  border-bottom: 3px solid #ef4d70;
+  border-bottom: 3px solid #afafaf;
   padding-bottom: 10px;
-  margin-bottom: 40px;
   color: white;
   width: 10vw;
   &:focus {
@@ -131,46 +208,117 @@ const UserInfoInput = styled.input`
   }
   font-size: 1.1rem;
 `
-const UserInfo = styled.div`
+const AddMemberInfo = styled.input`
+  background-color: transparent;
+  border: transparent;
+  border-bottom: 3px solid #afafaf;
   padding-bottom: 10px;
-  margin-bottom: 40px;
   color: white;
   width: 10vw;
-
-  font-size: 1.1rem;
-`
-
-const EmailP = styled.div`
-  font-size: 2rem;
-  color: white;
-  padding: 40px;
-`
-
-const UserInfoBox = styled.div`
+  &:focus {
+    outline: none;
+  }
+  &::placeholder {
+    color: #afafaf;
+  }
+  font-size: 0.9rem;
   position: absolute;
-  top: 160px;
-  left: 400px;
+  right: 10vw;
+  top: 38vh;
+`
+const ProjectInfoBox = styled.div`
+  position: absolute;
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  justify-content: space-between;
+  right: 10vw;
+  top: 23vh;
+  height: 8vh;
+  background-color: transparent;
 `
-
-const Findbtn = styled.button`
-  position: absolute;
-  top: 400px;
-  left: 400px;
-  border-radius: 8px;
-  color: balck;
-  width: 200px;
-  height: 50px;
-  background-color: white;
+const AddMemberbtn = styled.button`
+  width: 60px;
+  height: 30px;
+  color: white;
+  background-color: #afafaf;
   cursor: pointer;
+  border: none;
+  border-radius: 6px;
+  font-size: 0.7rem;
+  position: absolute;
+  right: 10vw;
+  top: 34.5vh;
+
   &:active,
   &:focus {
     outline: none;
   }
-  font-size: 1.1rem;
 `
-const Logo = styled.img`
-  width: 250px;
-  margin-left: 50px;
+const ProjectMemberInfo = styled.div`
+  font-size: 1rem;
+  color: white;
+  position: absolute;
+  top: 35vh;
+  right: 16.7vw;
+`
+
+const CreateProjectbtn = styled.button`
+  width: 260px;
+  height: 25px;
+  cursor: pointer;
+  border-radius: 5px;
+  border: none;
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 1em;
+  color: #111;
+  outline: none;
+  background-color: #fa991d;
+  position: absolute;
+  right: 10vw;
+  bottom: 10px;
+  display: block;
+  &:hover {
+    color: white;
+  }
+`
+const CreateProjectbtnBox = styled.div`
+  height: 500px;
+`
+
+const CurrMem = styled.div`
+  font-size: 1em;
+  color: white;
+  text-align: center;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  margin: 0 auto;
+`
+
+const CurrMemBox = styled.div`
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  justify-content: space-between;
+  right: 18.48vw;
+  top: 41vh;
+  height: 8vh;
+  border-top: 3px solid #fa991d;
+`
+
+const ProjectMemberInfoBox = styled.div``
+
+const AddUserCodebtn = styled.span`
+  color: white;
+  margin-left: 2px;
+  cursor: pointer;
+  position: absolute;
+  right: 10vw;
+  top: 38vh;
+  font-size: 0.9rem;
 `

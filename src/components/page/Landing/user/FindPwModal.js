@@ -102,7 +102,7 @@ export const FindPwModal = ({ showPwModal, setShowPwModal }) => {
                       placeholder="Confirm New Password"
                     />
                   </UserInfoBox>
-                  <Findbtn onClick={onFind}>확인</Findbtn>
+                  <Findbtn onClick={onFind}>변경</Findbtn>
                 </>
               ) : (
                 <>
@@ -126,7 +126,7 @@ export const FindPwModal = ({ showPwModal, setShowPwModal }) => {
                       placeholder="Phone"
                     />
                   </UserInfoBox>
-                  <Findbtn onClick={onFind}>변경</Findbtn>
+                  <Findbtn onClick={onFind}>찾기</Findbtn>
                 </>
               )}
               <CloseModalButton
