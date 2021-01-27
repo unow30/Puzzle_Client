@@ -1,31 +1,26 @@
 import React from 'react'
 import styled from 'styled-components'
-import { useHistory } from 'react-router-dom'
 
-const PasswrodChangeSuccess = ({ showPasswrodChangeSuccess, setShowPasswrodChangeSuccess, setShowPasswrodChange }) => {
-
-    const history = useHistory()
+const PasswrodChangeFail = ({ showPasswrodChangeFail, setShowPasswrodChangeFail}) => {
 
     const closeModal = () => {
-        setShowPasswrodChange(prev => !prev);
-        setShowPasswrodChangeSuccess(prev => !prev)
-        history.push('/')
+        setShowPasswrodChangeFail(prev => !prev)
     }
 
     return (
         <>
-            {showPasswrodChangeSuccess ? (
+            {showPasswrodChangeFail ? (
                 <Background>
-                    <ModalWrapper showPasswrodChangeSuccess={showPasswrodChangeSuccess}>
-                        <Password_Success_Header_Containers>
-                            <Password_Success_Header_Title>알림</Password_Success_Header_Title>
-                        </Password_Success_Header_Containers>
-                        <Password_Success_Content_Containers>
-                            <Password_Success_Text>비밀번호 변경이 완료되었습니다.</Password_Success_Text>
-                        </Password_Success_Content_Containers>
-                        <Password_Success_btn_Containers>
-                            <Password_Success_btn onClick={closeModal}> 확인 </Password_Success_btn>
-                        </Password_Success_btn_Containers>
+                    <ModalWrapper showPasswrodChangeFail={showPasswrodChangeFail}>
+                        <Password_Fail_Header_Containers>
+                            <Password_Fail_Header_Title>알림</Password_Fail_Header_Title>
+                        </Password_Fail_Header_Containers>
+                        <Password_Fail_Content_Containers>
+                            <Password_Fail_Text>현재 비밀번호를 다시 확인해주시기 바랍니다.</Password_Fail_Text>
+                        </Password_Fail_Content_Containers>
+                        <Password_Fail_btn_Containers>
+                            <Password_Fail_btn onClick={closeModal}> 확인 </Password_Fail_btn>
+                        </Password_Fail_btn_Containers>
                     </ModalWrapper>
                 </Background>
             ) : null}
@@ -33,7 +28,7 @@ const PasswrodChangeSuccess = ({ showPasswrodChangeSuccess, setShowPasswrodChang
     );
 }
 
-export default PasswrodChangeSuccess;
+export default PasswrodChangeFail;
 
 // <------------ css ------------> //
 
@@ -69,7 +64,7 @@ const ModalWrapper = styled.div`
 //   &:hover{ color: #FA991D};
 // `
 
-const Password_Success_Header_Containers = styled.div`
+const Password_Fail_Header_Containers = styled.div`
   display: flex;
   width:100%;
   height:40px;
@@ -77,7 +72,7 @@ const Password_Success_Header_Containers = styled.div`
   align-items: center;
 `
 
-const Password_Success_Header_Title = styled.div`
+const Password_Fail_Header_Title = styled.div`
   margin-left: center;
   font-family: 'Roboto';
   font-style: normal;
@@ -85,7 +80,7 @@ const Password_Success_Header_Title = styled.div`
   font-size: 1.3em;
 `
 
-const Password_Success_Content_Containers = styled.div`
+const Password_Fail_Content_Containers = styled.div`
     display:flex;
     justify-content: center;
     align-items: center;
@@ -93,13 +88,14 @@ const Password_Success_Content_Containers = styled.div`
     height: 40px;
 `
 
-const Password_Success_Text = styled.span`
+const Password_Fail_Text = styled.span`
     font-family: 'Roboto';
     font-style: normal;
     font-weight: 500;
+    font-size: 0.9em;
 `
 
-const Password_Success_btn_Containers = styled.div`
+const Password_Fail_btn_Containers = styled.div`
     width: 100%;
     height: 40px;
     display:flex;
@@ -107,7 +103,7 @@ const Password_Success_btn_Containers = styled.div`
     align-items: center;
 `
 
-const Password_Success_btn = styled.button`
+const Password_Fail_btn = styled.button`
     width: 150px;
     height: 30px;
     cursor: pointer;

@@ -1,65 +1,123 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 
 import { ArrowIosBackOutline } from '@styled-icons/evaicons-outline/ArrowIosBackOutline';
 import { ArrowIosForwardOutline } from '@styled-icons/evaicons-outline/ArrowIosForwardOutline';
 
 const CalendarAPI = () => {
-    const date = new Date();
+    let date = new Date();
 
-    const viewYear = date.getFullYear();
-    const viewMonth = date.getMonth();
+    const [viewYear, setViewYear] = useState(date.getFullYear());
+    const [viewMonth, setViewMonth] = useState(date.getMonth());
 
-    const prevLast = new Date(viewYear, viewMonth, 0);
-    const thisLast = new Date(viewYear, viewMonth + 1, 0);
+    let prevLast = new Date(viewYear, viewMonth, 0);
+    let thisLast = new Date(viewYear, viewMonth + 1, 0);
 
-    const PLDate = prevLast.getDate();
-    const PLDay = prevLast.getDay();
+    let PLDate = prevLast.getDate();
+    let PLDay = prevLast.getDay();
 
-    const TLDate = thisLast.getDate();
-    const TLDay = thisLast.getDay();
+    let TLDate = thisLast.getDate();
+    let TLDay = thisLast.getDay();
 
-    const prevDates = [];
-    const thisDates = [...Array(TLDate + 1).keys()].slice(1);
-    const nextDates = [];
+    let prevDates = [];
+    let thisDates = [...Array(TLDate + 1).keys()].slice(1);
+    let nextDates = [];
 
     if (PLDay !== 6) {
         for (let i = 0; i < PLDay + 1; i++) {
-            prevDates.unshift(PLDate - i);
+          prevDates.unshift(PLDate - i);
         }
+      }
+    let temp = prevDates.concat(thisDates);
+
+     for (let i = 1; i <= 42 - temp.length; i++) {
+        nextDates.push(i)
     }
 
-    for (let i = 1; i < 7 - TLDay; i++) {
-        nextDates.push(i);
-    }
+    let dates = temp.concat(nextDates);
 
-    const dates = prevDates.concat(thisDates, nextDates);
+    const firstDateIndex = dates.indexOf(1);
+    const lastDateIndex = dates.lastIndexOf(TLDate);
 
     dates.forEach((date, i) => {
-        dates[i] = <Calendar_Day_Text>{date}</Calendar_Day_Text>;
+        const condition = i >= firstDateIndex && i < lastDateIndex + 1 ? false : true;
+        dates[i] = 
+        <Calendar_Day_Text_Containers>
+            <Calendar_Day_Text condition = {condition} key={i++} >{date}</Calendar_Day_Text>
+        </Calendar_Day_Text_Containers>;
     })
+    
+    const preYear = () => {
+        setViewYear(date.getFullYear(date.setFullYear(viewYear - 1)));
+    }
+
+    const nextYear = () => {
+        setViewYear(date.getFullYear(date.setFullYear(viewYear + 1)));
+    }
+
+    const selectMonth = (e) => {
+        const {
+            target: {innerText}
+        } = e
+        if(innerText === '1 월'){
+            setViewMonth(date.getMonth(date.setMonth(0)));
+        }
+        if(innerText === '2 월'){
+            setViewMonth(date.getMonth(date.setMonth(1)));
+        }
+        if(innerText === '3 월'){
+            setViewMonth(date.getMonth(date.setMonth(2)));
+        }
+        if(innerText === '4 월'){
+            setViewMonth(date.getMonth(date.setMonth(3)));
+        }
+        if(innerText === '5 월'){
+            setViewMonth(date.getMonth(date.setMonth(4)));
+        }
+        if(innerText === '6 월'){
+            setViewMonth(date.getMonth(date.setMonth(5)));
+        }
+        if(innerText === '7 월'){
+            setViewMonth(date.getMonth(date.setMonth(6)));
+        }
+        if(innerText === '8 월'){
+            setViewMonth(date.getMonth(date.setMonth(7)));
+        }
+        if(innerText === '9 월'){
+            setViewMonth(date.getMonth(date.setMonth(8)));
+        }
+        if(innerText === '10 월'){
+            setViewMonth(date.getMonth(date.setMonth(9)));
+        }
+        if(innerText === '11 월'){
+            setViewMonth(date.getMonth(date.setMonth(10)));
+        }
+        if(innerText === '12 월'){
+            setViewMonth(date.getMonth(date.setMonth(11)));
+        }
+    }
 
     return (
         <Calendar_Containers>
             <Calendar_Year_Month_Containers>
                 <Calendar_Year_Containers>
-                    <Calendar_Year_Prev_btn></Calendar_Year_Prev_btn>
+                    <Calendar_Year_Prev_btn onClick={preYear}></Calendar_Year_Prev_btn>
                     <Calendar_Year_Text>{viewYear}</Calendar_Year_Text>
-                    <Calendar_Year_Next_btn></Calendar_Year_Next_btn>
+                    <Calendar_Year_Next_btn onClick={nextYear}></Calendar_Year_Next_btn>
                 </Calendar_Year_Containers>
                 <Calendar_Month_Containers>
-                    <Calendar_Month_Text>1 월</Calendar_Month_Text>
-                    <Calendar_Month_Text>2 월</Calendar_Month_Text>
-                    <Calendar_Month_Text>3 월</Calendar_Month_Text>
-                    <Calendar_Month_Text>4 월</Calendar_Month_Text>
-                    <Calendar_Month_Text>5 월</Calendar_Month_Text>
-                    <Calendar_Month_Text>6 월</Calendar_Month_Text>
-                    <Calendar_Month_Text>7 월</Calendar_Month_Text>
-                    <Calendar_Month_Text>8 월</Calendar_Month_Text>
-                    <Calendar_Month_Text>9 월</Calendar_Month_Text>
-                    <Calendar_Month_Text>10 월</Calendar_Month_Text>
-                    <Calendar_Month_Text>11 월</Calendar_Month_Text>
-                    <Calendar_Month_Text>12 월</Calendar_Month_Text>
+                    <Calendar_Month_Text onClick={selectMonth} >1 월</Calendar_Month_Text>
+                    <Calendar_Month_Text onClick={selectMonth} >2 월</Calendar_Month_Text>
+                    <Calendar_Month_Text onClick={selectMonth} >3 월</Calendar_Month_Text>
+                    <Calendar_Month_Text onClick={selectMonth} >4 월</Calendar_Month_Text>
+                    <Calendar_Month_Text onClick={selectMonth} >5 월</Calendar_Month_Text>
+                    <Calendar_Month_Text onClick={selectMonth} >6 월</Calendar_Month_Text>
+                    <Calendar_Month_Text onClick={selectMonth} >7 월</Calendar_Month_Text>
+                    <Calendar_Month_Text onClick={selectMonth} >8 월</Calendar_Month_Text>
+                    <Calendar_Month_Text onClick={selectMonth} >9 월</Calendar_Month_Text>
+                    <Calendar_Month_Text onClick={selectMonth} >10 월</Calendar_Month_Text>
+                    <Calendar_Month_Text onClick={selectMonth} >11 월</Calendar_Month_Text>
+                    <Calendar_Month_Text onClick={selectMonth} >12 월</Calendar_Month_Text>
                     <Calendar_Month_Footer></Calendar_Month_Footer>
                 </Calendar_Month_Containers>
             </Calendar_Year_Month_Containers>
@@ -68,18 +126,18 @@ const CalendarAPI = () => {
                     <Calendar_Days_Title_Containers>
                         <Calendar_Days_Title>{viewMonth + 1}월</Calendar_Days_Title>
                     </Calendar_Days_Title_Containers>
-                        <Calendar_Days_Text_Containers>
-                            <Calendar_Days_Text>일</Calendar_Days_Text>
-                            <Calendar_Days_Text>월</Calendar_Days_Text>
-                            <Calendar_Days_Text>화</Calendar_Days_Text>
-                            <Calendar_Days_Text>수</Calendar_Days_Text>
-                            <Calendar_Days_Text>목</Calendar_Days_Text>
-                            <Calendar_Days_Text>금</Calendar_Days_Text>
-                            <Calendar_Days_Text>토</Calendar_Days_Text>
-                        </Calendar_Days_Text_Containers>
-                    <Calendar_Day_Text_Containers>
+                    <Calendar_Days_Text_Containers>
+                        <Calendar_Days_Text>일</Calendar_Days_Text>
+                        <Calendar_Days_Text>월</Calendar_Days_Text>
+                        <Calendar_Days_Text>화</Calendar_Days_Text>
+                        <Calendar_Days_Text>수</Calendar_Days_Text>
+                        <Calendar_Days_Text>목</Calendar_Days_Text>
+                        <Calendar_Days_Text>금</Calendar_Days_Text>
+                        <Calendar_Days_Text>토</Calendar_Days_Text>
+                    </Calendar_Days_Text_Containers>
+                    <Calendar_Day_Body_Containers>
                         {dates}
-                    </Calendar_Day_Text_Containers>
+                    </Calendar_Day_Body_Containers>
                 </Calendar_Day_Inside_Containers>
             </Calendar_Day_Containers>
             <Calendar_Text_Containers></Calendar_Text_Containers>
@@ -114,13 +172,23 @@ const Calendar_Year_Containers = styled.div`
 const Calendar_Year_Prev_btn = styled(ArrowIosBackOutline)`
     width:32px;
     height:32px;
-    color:white
+    color:white;
+    cursor: pointer;
+
+    &:hover{
+        color:#052439;
+    }
 `
 
 const Calendar_Year_Next_btn = styled(ArrowIosForwardOutline)`
     width:32px;
     height:32px;
-    color:white
+    color:white;
+    cursor: pointer;
+
+    &:hover{
+        color:#052439;
+    }
 `
 
 const Calendar_Year_Text = styled.span`
@@ -147,6 +215,11 @@ const Calendar_Month_Text = styled.span`
     font-style: normal;
     font-weight: 700;
     color: white;
+    cursor: pointer;
+
+    &:hover{
+        color:#052439;
+    }
 `
 
 const Calendar_Month_Footer = styled.div`
@@ -199,23 +272,28 @@ const Calendar_Days_Text = styled.span`
     color: white;
 `
 
-const Calendar_Day_Text_Containers = styled.div`
+const Calendar_Day_Body_Containers = styled.div`
     width:100%;
-    height:650px;
+    height:700px;
     display:flex;
     flex-flow: row wrap;
     justify-content: center;
+    justify-content: space-around;
 `
 
-const Calendar_Day_Text = styled.span`
+const Calendar_Day_Text_Containers = styled.div`
+    width: calc(100%/7);
+    height: 20px;
+`
+
+const Calendar_Day_Text = styled.div`
     color: white;
     font-family: 'Roboto';
     font-style: normal;
     font-weight: 700;
-    font-size: 1em;
-    width: calc(100%/7);
-    height: 120px;
+    font-size: 1.5em;
     text-align: center;
+    opacity: ${props => props.condition ? '.3' : 'none'}; 
 `
 
 const Calendar_Text_Containers = styled.div`

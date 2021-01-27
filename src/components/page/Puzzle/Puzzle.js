@@ -6,7 +6,8 @@ import Puzzle_SideBar_Left from '../template/SideBarLeft'
 import Puzzle_SideBar_Right from '../template/SideBarRight'
 import Puzzle_Footer from '../template/Footer'
 
-import Noname from './components/noname'
+import PuzzleHeader from './components/PuzzleHeader'
+import PuzzleContent from './components/PuzzleContent'
 
 import background_img from '../../../images/background/background.jpg'
 
@@ -15,11 +16,14 @@ const Puzzle = () => {
         <Background>
             <Backgroundgradient>
                 <Puzzle_Header></Puzzle_Header>
-                <Calendar_Content_Containers>
+                <Puzzle_Content_Containers>
                     <Puzzle_SideBar_Left></Puzzle_SideBar_Left>
-                    <Noname></Noname>
+                    <Puzzle_Content_Inside_Containers>
+                        <PuzzleHeader></PuzzleHeader>
+                        <PuzzleContent></PuzzleContent>
+                    </Puzzle_Content_Inside_Containers>
                     <Puzzle_SideBar_Right></Puzzle_SideBar_Right>
-                </Calendar_Content_Containers>
+                </Puzzle_Content_Containers>
                 <Puzzle_Footer></Puzzle_Footer>
             </Backgroundgradient>
         </Background>
@@ -51,8 +55,15 @@ const Backgroundgradient = styled.div`
     width: 100wh;
 `
 
-const Calendar_Content_Containers = styled.div`
+const Puzzle_Content_Containers = styled.div`
     width: 100%;
     height: calc(100vh - 280px);
     display: flex;
+`
+
+const Puzzle_Content_Inside_Containers = styled.div`
+    background-color: #052439;
+    width: calc(100vw - 500px);
+    height: 100%;
+    border-radius: 30px;
 `
