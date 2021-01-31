@@ -104,4 +104,4 @@
 
 # For project details
 
-[https://github.com/codestates/shigo-jago-client/wiki/worklog](https://github.com/codestates/shigo-jago-client/wiki/worklog)
+[https://github.com/codestates/Puzzle_Client/wiki](https://github.com/codestates/Puzzle_Client/wiki)
