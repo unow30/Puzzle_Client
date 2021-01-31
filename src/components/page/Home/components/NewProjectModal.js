@@ -134,10 +134,11 @@ const ModalWrapper = styled.div`
   border-radius: 10px;
   overflow-x: auto;
   overflow-y: scroll;
+
   &::-webkit-scrollbar {
     /* 세로 스크롤 넓이 */
     width: 12px;
-
+    display: none;
     border-radius: 6px;
     background: rgba(255, 255, 255, 0.4);
   }
@@ -151,7 +152,7 @@ const CloseModalButton = styled(MdClose)`
   cursor: pointer;
   position: absolute;
   top: 20px;
-  left: 20px;
+  right: 20px;
   width: 32px;
   height: 32px;
   padding: 0;
@@ -317,7 +318,7 @@ const AddUserCodebtn = styled.span`
   color: white;
   margin-left: 2px;
   cursor: pointer;
-  position: absolute;
+  position: relative;
   right: 10vw;
   top: 38vh;
   font-size: 0.9rem;
