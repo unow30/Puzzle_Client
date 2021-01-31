@@ -39,6 +39,7 @@ export const Login = ({ setSignUp }) => {
       .then(res => {
         sessionStorage.setItem('accessToken', res.data.accessToken)
         history.push('/home')
+        console.log('로그인 성공', sessionStorage)
       })
       .catch(err => {
         setShowLoginErrorModal(perv => !perv)

@@ -8,8 +8,8 @@
   position: absolute;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   justify-content: space-between;
+  justify-content: center;
   align-items: center;
   color: white;
   right: 10vw;
@@ -45,6 +45,7 @@
 .UserInput {
   background-color: red;
   border-bottom: 5px solid #ef4d70;
+  vertical-align: middle;
 }
 .UserInput:focus {
   position: relative;
@@ -61,7 +62,9 @@
   justify-content: flex-end;
   align-items: flex-end;
   margin-left: 30px;
-
+  display: inline;
   z-index: -10;
   position: relative;
+  align-self: center;
+  align-content: center;
 }
