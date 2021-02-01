@@ -52,6 +52,7 @@ export const SignUp = ({ setSignUp }) => {
       .then(res => {
         alert('회원가입이 완료되었습니다.')
         setSignUp(prev => !prev)
+        console.log('댄응답')
       })
       .catch(err => {
         if (err.response.status === 409) {
@@ -61,6 +62,7 @@ export const SignUp = ({ setSignUp }) => {
         if (err.response.status === 404) {
           alert('모든 항목은 필수입니다.')
         }
+        console.log('에러')
       })
   }
   // 항목이 하나라도 안들어오면 로그인 안되는거 해주세요

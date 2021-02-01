@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
-import { Preview } from 'styled-icons/material-rounded'
+import { useHistory } from 'react-router-dom'
 import Img from '../../../../images/icon/img.jpg'
 import { BiSearch } from 'react-icons/bi'
 import axios from 'axios'
@@ -10,23 +10,41 @@ import { NewProjectModal } from './NewProjectModal'
 
 const Contents = () => {
   // const history=useHistory()
+  const history = useHistory()
+
+  const accessToken = sessionStorage.getItem('accessToken')
 
   const [showNewProject, setShowNewProject] = useState(false)
+  const [data, setData] = useState({})
+
   const openProjectModal = () => {
     setShowNewProject(prev => !prev)
-    console.log('클릭')
+    // console.log('클릭')
+  }
+
+  const getProjectData = () => {
+    axios
+      .get('https://api.teampuzzle.ga:4000/home', {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+          'Content-Type': 'application/json',
+        },
+      })
+      .then(res => {
+        const { projects } = res.data
+        setData(projects)
+        console.log(data)
+      })
+      .catch(err => console.log(err))
   }
 
   const test = () => {
-    axios
-      .get('https://api.teampuzzle.ga:4000/project/:id')
-      .then(res => console.log(res.data))
-      .catch(err => console.log(err))
+    console.log(data)
   }
 
   return (
     <>
-      <Div>
+      <Div className="row">
         <HomeNav>
           <SearchBarBox>
             <SearchBar
@@ -44,33 +62,58 @@ const Contents = () => {
           {/* <CreateBtn onClick={() => history.push('./project')}></CreateBtn> */}
         </HomeNav>
         <Div2>
-          <button onClick={test}>테스트</button>
-          <ProjectBox>
-            <ProjectList>
-              <ProjectListImg />
-            </ProjectList>
-            <ProjectList>
-              <ProjectListImg />
-            </ProjectList>
-            <ProjectList>
-              <ProjectListImg />
-            </ProjectList>
-            <ProjectList>
-              <ProjectListImg />
-            </ProjectList>
-            <ProjectList>
-              <ProjectListImg />
-            </ProjectList>
-            <ProjectList>
-              <ProjectListImg />
-            </ProjectList>
-            <ProjectList>
-              <ProjectListImg />
-            </ProjectList>
-            <ProjectList>
-              <ProjectListImg />
-            </ProjectList>
-          </ProjectBox>
+          {/* <button onClick={getProjectData}>테스트</button>
+          <button onClick={test}>테스트2</button> */}
+          <ProjectContainer>
+            <Project onClick={() => history.push('./project')}>
+              <ProjectTitle>ABO</ProjectTitle>
+              <ProjectImg />
+              <ProjectDesc>퍼즐을 이용한 협업 툴 만들기</ProjectDesc>
+              <ProjectDate>생성날짜 2020-01-13</ProjectDate>
+            </Project>
+            <Project>
+              <ProjectTitle>ABO</ProjectTitle>
+              <ProjectImg />
+              <ProjectDesc>퍼즐을 이용한 협업 툴 만들기</ProjectDesc>
+              <ProjectDate>생성날짜 2020-01-13</ProjectDate>
+            </Project>
+            <Project>
+              <ProjectTitle>ABO</ProjectTitle>
+              <ProjectImg />
+              <ProjectDesc>퍼즐을 이용한 협업 툴 만들기</ProjectDesc>
+              <ProjectDate>생성날짜 2020-01-13</ProjectDate>
+            </Project>
+            <Project>
+              <ProjectTitle>ABO</ProjectTitle>
+              <ProjectImg />
+              <ProjectDesc>퍼즐을 이용한 협업 툴 만들기</ProjectDesc>
+              <ProjectDate>생성날짜 2020-01-13</ProjectDate>
+            </Project>
+            <Project>
+              <ProjectTitle>ABO</ProjectTitle>
+              <ProjectImg />
+              <ProjectDesc>퍼즐을 이용한 협업 툴 만들기</ProjectDesc>
+              <ProjectDate>생성날짜 2020-01-13</ProjectDate>
+            </Project>
+            <Project>
+              <ProjectTitle>ABO</ProjectTitle>
+              <ProjectImg />
+              <ProjectDesc>퍼즐을 이용한 협업 툴 만들기</ProjectDesc>
+              <ProjectDate>생성날짜 2020-01-13</ProjectDate>
+            </Project>
+            <Project>
+              <ProjectTitle>ABO</ProjectTitle>
+              <ProjectImg />
+              <ProjectDesc>퍼즐을 이용한 협업 툴 만들기</ProjectDesc>
+              <ProjectDate>생성날짜 2020-01-13</ProjectDate>
+            </Project>
+            <Project>
+              <ProjectTitle>ABO</ProjectTitle>
+              <ProjectImg />
+              <ProjectDesc>퍼즐을 이용한 협업 툴 만들기</ProjectDesc>
+              <ProjectDate>생성날짜 2020-01-13</ProjectDate>
+            </Project>
+          </ProjectContainer>
         </Div2>
       </Div>
       <NewProjectModal
@@ -86,17 +129,18 @@ export default Contents
 // <------------ css ------------> //
 
 const Div = styled.div`
+  // max-width: 1140px;
+
   width: calc(100vw - 500px);
   // background-color: red;
   height: 100%;
 `
 const Div2 = styled.div`
   position: relative;
-  top: 15%;
-  // background-color: green;
+
   width: calc(100vw - 500px);
+  top: 15%;
   height: 85%;
-  justify-content: space-between;
 `
 
 const HomeNav = styled.div`
@@ -123,7 +167,6 @@ const SearchBar = styled.input`
   border: transparent;
   padding: 8px;
   background-color: transparent;
-
   width: 7vw;
   &:focus {
     outline: none;
@@ -169,32 +212,57 @@ const CreateBtn = styled.button`
   cursor: pointer;
   border: transparent;
 `
-const ProjectList = styled.div`
+const Project = styled.div`
   border-radius: 10px;
   background-color: white;
   background-size: cover;
-  width: 13vw;
-  height: 25vh;
+  width: 15vw;
+  height: 27vh;
+  margin: 15px;
+  cursor: pointer;
 
   //   background-image: url(${Img});
 `
-const ProjectBox = styled.div`
+const ProjectContainer = styled.div`
+  position: absolute;
   display: flex;
-  justify-content: center;
-  justify-content: space-between;
-  width: calc(100vw - 1000px);
-  height: 85%;
+  height: 100%;
+  width: 100%;
   flex-wrap: wrap;
-  margin: 0px auto;
+  justify-content: space-around;
+  margin: auto;
 `
-const ProjectListImg = styled.div`
+const ProjectImg = styled.div`
   background-image: url(${Img});
-  width: 150px;
-  height: 150px;
-  border-radius: 50%;
+  width: 130px;
+  height: 130px;
+  border-radius: 10px;
+  border: 2px solid #afafaf;
   background-size: cover;
   background-color: white;
-  margin: 25% 25%;
+  margin: auto;
+  margin-top: 30px;
+`
+
+const ProjectTitle = styled.div`
+  text-align: center;
+  margin-top: 20px;
+  font-size: 1.3rem;
+  font-weight: bold;
+`
+const ProjectDesc = styled.div`
+  text-align: center;
+  margin-top: 50px;
+  font-size: 1.1rem;
+`
+
+const ProjectDate = styled.div`
+  text-align: start;
+  margin-top: 50px;
+  margin-left: 20px;
+  font-size: 0.9rem;
+
+  color: #afafaf;
 `
 
 const SerachButton = styled(BiSearch)`
