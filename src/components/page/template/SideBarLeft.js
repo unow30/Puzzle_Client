@@ -2,7 +2,9 @@ import React from 'react';
 import { Link, withRouter } from "react-router-dom";
 import styled from 'styled-components';
 
-export default withRouter(({ location: { pathname } }) => (
+export default withRouter(({ location: { pathname}}) => {
+
+    return(
     <>
         <Puzzle_SideBar_Containers_left>
             <Puzzle_SideBar_category_ul>
@@ -24,10 +26,9 @@ export default withRouter(({ location: { pathname } }) => (
             </Puzzle_SideBar_category_ul>
         </Puzzle_SideBar_Containers_left>
     </>
-));
+)});
 
 // <------------ css ------------> //
-
 const Puzzle_SideBar_Containers_left = styled.div`
     display: flex;
     width: 300px;

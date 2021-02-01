@@ -35,6 +35,7 @@ const Background = styled.div`
   height: 100vh;
   width: 100wh;
   background-attachment: scroll;
+  
   @media ${props => props.theme.mobile} {
     background-color: red;
     width: 500px;
