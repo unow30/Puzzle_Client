@@ -38,10 +38,10 @@ const Background = styled.div`
     background-attachment: scroll;
 
     @media ${(props) => props.theme.mobile}{
-    background-color:red;
-    width:500px;
-    height:500px;
-    }
+        background-color:red;
+        width:500px;
+        height:500px;
+        }
 `
 const Backgroundgradient = styled.div`
     background-repeat: no-repeat;

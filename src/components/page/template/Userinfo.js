@@ -361,12 +361,12 @@ const Profile_Content_Change_btn = styled.button`
   font-family: 'Roboto';
   font-style: normal;
   font-weight: 500;
-  color: #111;
+  color: white;
   outline: none;
   background-color:#FA991D;
   
   &:hover {
-      color: white;
+      color: #111;
   }
 `
 
@@ -380,12 +380,12 @@ font-family: 'Roboto';
 font-style: normal;
 font-weight: 500;
 font-size: 1em;
-color: #111;
+color: white;
 outline: none;
 background-color:#FA991D;
 
 &:hover {
-    color: white;
+    color: #111;
 }
 `
 

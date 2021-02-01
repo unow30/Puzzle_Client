@@ -38,7 +38,9 @@ export const Login = ({ setSignUp }) => {
       })
       .then(res => {
         sessionStorage.setItem('accessToken', res.data.accessToken)
-        history.push('/home')
+        setTimeout(() => {
+          history.push('/home')
+        }, 100);
       })
       .catch(err => {
         setShowLoginErrorModal(perv => !perv)

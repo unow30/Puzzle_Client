@@ -42,8 +42,8 @@ const CalendarAPI = () => {
     dates.forEach((date, i) => {
         const condition = i >= firstDateIndex && i < lastDateIndex + 1 ? false : true;
         dates[i] = 
-        <Calendar_Day_Text_Containers>
-            <Calendar_Day_Text condition = {condition} key={i++} >{date}</Calendar_Day_Text>
+        <Calendar_Day_Text_Containers key={i++} >
+            <Calendar_Day_Text condition = {condition} >{date}</Calendar_Day_Text>
         </Calendar_Day_Text_Containers>;
     })
     
@@ -153,6 +153,7 @@ const Calendar_Containers = styled.div`
     width: calc(100vw - 500px);
     height: 100%;
     display:flex;
+    min-height:1100px;
 `
 
 const Calendar_Year_Month_Containers = styled.div`
