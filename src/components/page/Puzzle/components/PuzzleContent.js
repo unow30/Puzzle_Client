@@ -6,6 +6,8 @@ import Editor from './EditorComponent'
 import PuzzleLabel from './PuzzleLable'
 import PuzzleComment from './PuzzleComment'
 
+import Puzzleimg from '../../../../images/icon/img22.jpg'
+
 const PuzzleContent = ({ puzzleData, setContentData, comment, setCommentData }) => {
 
     const [Editors, setEditors] = useState(true);
@@ -45,7 +47,10 @@ const PuzzleContent = ({ puzzleData, setContentData, comment, setCommentData }) 
     }
     return (
         <Puzzle_Content_Puzzle_Title_Containers>
-            <PuzzleImg></PuzzleImg>
+            <PuzzleImg_Containers>
+                <PuzzleImg src={Puzzleimg}></PuzzleImg>
+                <PuzzleImg_btn>퍼즐 완료</PuzzleImg_btn>
+            </PuzzleImg_Containers>
             <Puzzle_Content_Setting_Containers>
                 <Puzzle_Content_Writer_Containers>
                     <Puzzle_Content_writer>작성자</Puzzle_Content_writer>
@@ -114,11 +119,39 @@ const ReactQuills_Containers = styled.div`
     justify-content: space-between;
 `
 
-const PuzzleImg = styled.div`
-    width: 700px;
-    height: 700px;
-    background-color: blue;
+const PuzzleImg_Containers = styled.div`
+    width: 100%;
+    height: 500px;
     flex: 1;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+`
+
+const PuzzleImg_btn = styled.button`
+    width: 100px;
+    height: 40px;
+    margin-top: 20px;
+    cursor: pointer;
+    border-radius: 5px;
+    border: none;
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 1em;
+    color: white;
+    outline: none;
+    background-color:#FA991D;
+
+    &:hover {
+        color: #111;
+    }
+`
+
+const PuzzleImg = styled.img`
+    width: 250px;
+    height: 250px;
 `
 
 const ReactQuills_btn_Containers = styled.div`

@@ -38,6 +38,9 @@ const PuzzleLabale = ({puzzleData}) => {
                 {puzzleDataValue}
             </Puzzle_Label_Render_Containers>
             <Puzzle_Label_Title>현재 Labels </Puzzle_Label_Title>
+            <Puzzle_delete_btn_Containers>
+                <Puzzle_delete_btn>퍼즐 삭제</Puzzle_delete_btn>
+            </Puzzle_delete_btn_Containers>
         </Puzzle_Label_Containers>
     )
 }
@@ -61,6 +64,39 @@ const Puzzle_Label_Title = styled.div`
     font-size: 2em;
     margin-bottom: 10px;
 `
+
+const Puzzle_delete_btn_Containers = styled.div`
+    width:100%;
+    height:100px;
+    margin-top: 115%;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+`
+
+const Puzzle_delete_btn = styled.button`
+    width: 100px;
+    height: 40px;
+    color: white;
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 700;
+    cursor: pointer;
+    border-radius: 5px;
+    border: none;
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 1em;
+    color: white;
+    outline: none;
+    background-color:#FA991D;
+
+    &:hover {
+        color: #111;
+    }
+`
+
 const Puzzle_Label_Search_Containers = styled.div`
     width: 100%;
     height: 60px;
