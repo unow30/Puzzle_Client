@@ -50,7 +50,9 @@ const Puzzle = () => {
                         <Puzzle_SideBar_Left></Puzzle_SideBar_Left>
                         <Puzzle_Content_Inside_Containers>
                             {loading ? (
-                                <Loading></Loading>
+                                <Loading>
+                                    <Loading_Text>진행중인 프로젝트가 없습니다.</Loading_Text>
+                                </Loading>
                             ) : (
                                     <>
                                         <PuzzleHeader puzzleData={puzzle} setTitleData={setTitleData}></PuzzleHeader>
@@ -88,7 +90,17 @@ const Background = styled.div`
 const Loading = styled.div`
     width:100%;
     height:100%;
-    cursor: wait;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+`
+
+const Loading_Text =styled.div`
+    color: white;
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 5em;
 `
 
 const Backgroundgradient = styled.div`

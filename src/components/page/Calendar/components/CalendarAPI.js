@@ -140,7 +140,9 @@ const CalendarAPI = () => {
                     </Calendar_Day_Body_Containers>
                 </Calendar_Day_Inside_Containers>
             </Calendar_Day_Containers>
-            <Calendar_Text_Containers></Calendar_Text_Containers>
+            <Calendar_Text_Containers>
+                <Calendar_Text>퍼즐1을 생성했습니다.</Calendar_Text>
+            </Calendar_Text_Containers>
         </Calendar_Containers>
     )
 }
@@ -298,8 +300,18 @@ const Calendar_Day_Text = styled.div`
 `
 
 const Calendar_Text_Containers = styled.div`
-    background-color:green;
     width: 30%;
     height: 100%;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    background-color:#FA991D;
+`
 
+const Calendar_Text = styled.div`
+    color: white;
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 1.5em;
 `
