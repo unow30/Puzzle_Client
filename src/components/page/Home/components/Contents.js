@@ -37,10 +37,8 @@ const Contents = () => {
       })
       .catch(err => console.log(err))
   }
-
-  const test = () => {
-    console.log(data)
-  }
+  useEffect(getProjectData, [])
+  console.log(data)
 
   return (
     <>
@@ -71,48 +69,7 @@ const Contents = () => {
               <ProjectDesc>퍼즐을 이용한 협업 툴 만들기</ProjectDesc>
               <ProjectDate>생성날짜 2020-01-13</ProjectDate>
             </Project>
-            <Project>
-              <ProjectTitle>ABO</ProjectTitle>
-              <ProjectImg />
-              <ProjectDesc>퍼즐을 이용한 협업 툴 만들기</ProjectDesc>
-              <ProjectDate>생성날짜 2020-01-13</ProjectDate>
-            </Project>
-            <Project>
-              <ProjectTitle>ABO</ProjectTitle>
-              <ProjectImg />
-              <ProjectDesc>퍼즐을 이용한 협업 툴 만들기</ProjectDesc>
-              <ProjectDate>생성날짜 2020-01-13</ProjectDate>
-            </Project>
-            <Project>
-              <ProjectTitle>ABO</ProjectTitle>
-              <ProjectImg />
-              <ProjectDesc>퍼즐을 이용한 협업 툴 만들기</ProjectDesc>
-              <ProjectDate>생성날짜 2020-01-13</ProjectDate>
-            </Project>
-            <Project>
-              <ProjectTitle>ABO</ProjectTitle>
-              <ProjectImg />
-              <ProjectDesc>퍼즐을 이용한 협업 툴 만들기</ProjectDesc>
-              <ProjectDate>생성날짜 2020-01-13</ProjectDate>
-            </Project>
-            <Project>
-              <ProjectTitle>ABO</ProjectTitle>
-              <ProjectImg />
-              <ProjectDesc>퍼즐을 이용한 협업 툴 만들기</ProjectDesc>
-              <ProjectDate>생성날짜 2020-01-13</ProjectDate>
-            </Project>
-            <Project>
-              <ProjectTitle>ABO</ProjectTitle>
-              <ProjectImg />
-              <ProjectDesc>퍼즐을 이용한 협업 툴 만들기</ProjectDesc>
-              <ProjectDate>생성날짜 2020-01-13</ProjectDate>
-            </Project>
-            <Project>
-              <ProjectTitle>ABO</ProjectTitle>
-              <ProjectImg />
-              <ProjectDesc>퍼즐을 이용한 협업 툴 만들기</ProjectDesc>
-              <ProjectDate>생성날짜 2020-01-13</ProjectDate>
-            </Project>
+
           </ProjectContainer>
         </Div2>
       </Div>
