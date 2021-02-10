@@ -38,7 +38,7 @@ const Contents = () => {
       .catch(err => console.log(err))
   }
   useEffect(getProjectData, [])
-  console.log(data)
+  // console.log(data)
 
   return (
     <>
