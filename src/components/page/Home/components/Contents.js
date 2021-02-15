@@ -1,27 +1,49 @@
-import React, { useState } from 'react'
+import React, { useState,useEffect } from 'react'
 import styled from 'styled-components'
 import { useHistory } from 'react-router-dom'
 import Img from '../../../../images/icon/img.jpg'
 import { BiSearch } from 'react-icons/bi'
-import axios from 'axios'
 
 import { NewProjectModal } from './NewProjectModal'
 // import {useHistory} from 'react-router-dom'
 
-const Contents = () => {
+const Contents = (projectData) => {
   // const history=useHistory()
   const history = useHistory()
 
-  const accessToken = sessionStorage.getItem('accessToken')
-
   const [showNewProject, setShowNewProject] = useState(false)
-  const [data, setData] = useState({})
+  //const [data, setData] = useState({})
+  let project = [];
+  let projectValue = [];
 
   const openProjectModal = () => {
     setShowNewProject(prev => !prev)
     // console.log('클릭')
   }
 
+<<<<<<< HEAD
+  projectData.projectData.map(i => {
+    project[i.id] = i;
+  })
+
+  project.forEach((data, i) => {
+     project[i].usersData.forEach((data,j) => {
+       //console.log(project[i].usersData[j]);
+      projectValue[project[i].id] = 
+      <Project>
+      <ProjectUser_Containers>
+      <ProjectUser_img src = {project[i].usersData[j].profileImg}></ProjectUser_img>
+      </ProjectUser_Containers>
+      <ProjectTitle>{project[i].title}</ProjectTitle>
+      <ProjectImg />
+      <ProjectDesc>{project[i].description}</ProjectDesc>
+      <ProjectDate>{project[i].createdAt.substring(0, 19).replace('T', ' ')}</ProjectDate>
+    </Project>
+    })
+  })
+
+  console.log(project);
+=======
   const getProjectData = () => {
     axios
       .get('https://api.teampuzzle.ga:4000/home', {
@@ -39,6 +61,7 @@ const Contents = () => {
   }
   useEffect(getProjectData, [])
   // console.log(data)
+>>>>>>> 99f9bef9f9e59f37e9f5db528a802bb1a517e1be
 
   return (
     <>
@@ -63,6 +86,9 @@ const Contents = () => {
           {/* <button onClick={getProjectData}>테스트</button>
           <button onClick={test}>테스트2</button> */}
           <ProjectContainer>
+<<<<<<< HEAD
+            {projectValue}
+=======
             <Project onClick={() => history.push('./project')}>
               <ProjectTitle>ABO</ProjectTitle>
               <ProjectImg />
@@ -70,6 +96,7 @@ const Contents = () => {
               <ProjectDate>생성날짜 2020-01-13</ProjectDate>
             </Project>
 
+>>>>>>> 99f9bef9f9e59f37e9f5db528a802bb1a517e1be
           </ProjectContainer>
         </Div2>
       </Div>
@@ -228,4 +255,19 @@ const SerachButton = styled(BiSearch)`
   height: 25px;
   padding: 0;
   color: white;
+`
+
+const ProjectUser_Containers = styled.div`
+  border-radius: 10px;
+  width: 100%;
+  height: 30px;
+  background-color:red;
+  display: flex;
+  justify-content: flex-end;
+`
+
+const ProjectUser_img = styled.img`
+width: 50px;
+height: 30px;
+background-color:blue;
 `
