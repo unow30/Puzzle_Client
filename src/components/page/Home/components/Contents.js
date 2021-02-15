@@ -1,46 +1,47 @@
-import React, { useState } from 'react'
+import React, { useState,useEffect } from 'react'
 import styled from 'styled-components'
 import { useHistory } from 'react-router-dom'
 import Img from '../../../../images/icon/img.jpg'
 import { BiSearch } from 'react-icons/bi'
-import axios from 'axios'
 
 import { NewProjectModal } from './NewProjectModal'
 // import {useHistory} from 'react-router-dom'
 
-const Contents = () => {
+const Contents = (projectData) => {
   // const history=useHistory()
   const history = useHistory()
 
-  const accessToken = sessionStorage.getItem('accessToken')
-
   const [showNewProject, setShowNewProject] = useState(false)
-  const [data, setData] = useState({})
+  //const [data, setData] = useState({})
+  let project = [];
+  let projectValue = [];
 
   const openProjectModal = () => {
     setShowNewProject(prev => !prev)
     // console.log('클릭')
   }
 
-  const getProjectData = () => {
-    axios
-      .get('https://api.teampuzzle.ga:4000/home', {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-          'Content-Type': 'application/json',
-        },
-      })
-      .then(res => {
-        const { projects } = res.data
-        setData(projects)
-        console.log(data)
-      })
-      .catch(err => console.log(err))
-  }
+  projectData.projectData.map(i => {
+    project[i.id] = i;
+  })
 
-  const test = () => {
-    console.log(data)
-  }
+  project.forEach((data, i) => {
+     project[i].usersData.forEach((data,j) => {
+       //console.log(project[i].usersData[j]);
+      projectValue[project[i].id] = 
+      <Project>
+      <ProjectUser_Containers>
+      <ProjectUser_img src = {project[i].usersData[j].profileImg}></ProjectUser_img>
+      </ProjectUser_Containers>
+      <ProjectTitle>{project[i].title}</ProjectTitle>
+      <ProjectImg />
+      <ProjectDesc>{project[i].description}</ProjectDesc>
+      <ProjectDate>{project[i].createdAt.substring(0, 19).replace('T', ' ')}</ProjectDate>
+    </Project>
+    })
+  })
+
+  console.log(project);
 
   return (
     <>
@@ -65,54 +66,7 @@ const Contents = () => {
           {/* <button onClick={getProjectData}>테스트</button>
           <button onClick={test}>테스트2</button> */}
           <ProjectContainer>
-            <Project onClick={() => history.push('./project')}>
-              <ProjectTitle>ABO</ProjectTitle>
-              <ProjectImg />
-              <ProjectDesc>퍼즐을 이용한 협업 툴 만들기</ProjectDesc>
-              <ProjectDate>생성날짜 2020-01-13</ProjectDate>
-            </Project>
-            <Project>
-              <ProjectTitle>ABO</ProjectTitle>
-              <ProjectImg />
-              <ProjectDesc>퍼즐을 이용한 협업 툴 만들기</ProjectDesc>
-              <ProjectDate>생성날짜 2020-01-13</ProjectDate>
-            </Project>
-            <Project>
-              <ProjectTitle>ABO</ProjectTitle>
-              <ProjectImg />
-              <ProjectDesc>퍼즐을 이용한 협업 툴 만들기</ProjectDesc>
-              <ProjectDate>생성날짜 2020-01-13</ProjectDate>
-            </Project>
-            <Project>
-              <ProjectTitle>ABO</ProjectTitle>
-              <ProjectImg />
-              <ProjectDesc>퍼즐을 이용한 협업 툴 만들기</ProjectDesc>
-              <ProjectDate>생성날짜 2020-01-13</ProjectDate>
-            </Project>
-            <Project>
-              <ProjectTitle>ABO</ProjectTitle>
-              <ProjectImg />
-              <ProjectDesc>퍼즐을 이용한 협업 툴 만들기</ProjectDesc>
-              <ProjectDate>생성날짜 2020-01-13</ProjectDate>
-            </Project>
-            <Project>
-              <ProjectTitle>ABO</ProjectTitle>
-              <ProjectImg />
-              <ProjectDesc>퍼즐을 이용한 협업 툴 만들기</ProjectDesc>
-              <ProjectDate>생성날짜 2020-01-13</ProjectDate>
-            </Project>
-            <Project>
-              <ProjectTitle>ABO</ProjectTitle>
-              <ProjectImg />
-              <ProjectDesc>퍼즐을 이용한 협업 툴 만들기</ProjectDesc>
-              <ProjectDate>생성날짜 2020-01-13</ProjectDate>
-            </Project>
-            <Project>
-              <ProjectTitle>ABO</ProjectTitle>
-              <ProjectImg />
-              <ProjectDesc>퍼즐을 이용한 협업 툴 만들기</ProjectDesc>
-              <ProjectDate>생성날짜 2020-01-13</ProjectDate>
-            </Project>
+            {projectValue}
           </ProjectContainer>
         </Div2>
       </Div>
@@ -271,4 +225,19 @@ const SerachButton = styled(BiSearch)`
   height: 25px;
   padding: 0;
   color: white;
+`
+
+const ProjectUser_Containers = styled.div`
+  border-radius: 10px;
+  width: 100%;
+  height: 30px;
+  background-color:red;
+  display: flex;
+  justify-content: flex-end;
+`
+
+const ProjectUser_img = styled.img`
+width: 50px;
+height: 30px;
+background-color:blue;
 `

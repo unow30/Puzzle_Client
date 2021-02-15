@@ -100,7 +100,6 @@ export default Landing
 
 const Guestbun = styled.button`
   position: absolute;
-  height: 178px;
   top: 3vh;
   right: 90vw;
   border-radius: 15px;
@@ -111,9 +110,16 @@ const Guestbun = styled.button`
   cursor: pointer;
 
   font-size: 1.4rem;
-  &:active,
-  &:focus {
-    outline: none;
+
+  border: none;
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 1em;
+  outline: none;
+
+  &:hover {
+      color: #111;
   }
 `
 

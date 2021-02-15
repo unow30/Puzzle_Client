@@ -30,7 +30,8 @@ export const Login = ({ setSignUp }) => {
     }
   }
 
-  const handleLogin = e => {
+  const handleLogin = (event) => {
+    event.preventDefault();
     axios
       .post('https://api.teampuzzle.ga:4000/user/login', {
         email,
@@ -38,8 +39,8 @@ export const Login = ({ setSignUp }) => {
       })
       .then(res => {
         sessionStorage.setItem('accessToken', res.data.accessToken)
-        history.push('/home')
-        //console.log('로그인 성공', sessionStorage)
+        //history.push('/home')
+        console.log('로그인 성공', sessionStorage)
       })
       .catch(err => {
         setShowLoginErrorModal(perv => !perv)
