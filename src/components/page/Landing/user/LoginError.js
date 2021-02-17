@@ -51,10 +51,11 @@ const Background = styled.div`
     justify-content: center;
     align-items: center;
     z-index: 5;
+    margin-right: 70%;
 `
 
 const ModalWrapper = styled.div`
-    width: 300px;
+    width: 350px;
     height: 150px;
     box-shadow: 0 5px 16px rgba(0, 0, 0, 0.2);
     background: white;
@@ -103,7 +104,7 @@ const Login_Error_Text = styled.div`
     font-family: 'Roboto';
     font-style: normal;
     font-weight: 500;
-    margin-top: 5px;
+    margin-top: 10px;
 `
 
 const Login_Error_btn_Containers = styled.div`
@@ -127,6 +128,7 @@ const Login_Error_btn = styled.button`
     color: #111;
     outline: none;
     background-color:#FA991D;
+    margin-top: 10px;
 
     &:hover {
         color: white;

@@ -21,47 +21,25 @@ const Contents = (projectData) => {
     // console.log('클릭')
   }
 
-<<<<<<< HEAD
   projectData.projectData.map(i => {
     project[i.id] = i;
   })
 
   project.forEach((data, i) => {
-     project[i].usersData.forEach((data,j) => {
-       //console.log(project[i].usersData[j]);
-      projectValue[project[i].id] = 
-      <Project>
-      <ProjectUser_Containers>
-      <ProjectUser_img src = {project[i].usersData[j].profileImg}></ProjectUser_img>
-      </ProjectUser_Containers>
-      <ProjectTitle>{project[i].title}</ProjectTitle>
-      <ProjectImg />
-      <ProjectDesc>{project[i].description}</ProjectDesc>
-      <ProjectDate>{project[i].createdAt.substring(0, 19).replace('T', ' ')}</ProjectDate>
-    </Project>
-    })
+    //   projectValue[project[i].id] = 
+    //   <Project>
+    //   <ProjectUser_Containers>
+    //    <ProjectUser_img src = {project[i].usersData[j].profileImg}></ProjectUser_img>
+    //   </ProjectUser_Containers>
+    //   <ProjectTitle>{project[i].title}</ProjectTitle>
+    //   <ProjectImg />
+    //   <ProjectDesc>{project[i].description}</ProjectDesc>
+    //   <ProjectDate>{project[i].createdAt.substring(0, 19).replace('T', ' ')}</ProjectDate>
+    // </Project>
+
   })
 
-  console.log(project);
-=======
-  const getProjectData = () => {
-    axios
-      .get('https://api.teampuzzle.ga:4000/home', {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-          'Content-Type': 'application/json',
-        },
-      })
-      .then(res => {
-        const { projects } = res.data
-        setData(projects)
-        console.log(data)
-      })
-      .catch(err => console.log(err))
-  }
-  useEffect(getProjectData, [])
-  // console.log(data)
->>>>>>> 99f9bef9f9e59f37e9f5db528a802bb1a517e1be
+  //console.log(project);
 
   return (
     <>
@@ -86,17 +64,7 @@ const Contents = (projectData) => {
           {/* <button onClick={getProjectData}>테스트</button>
           <button onClick={test}>테스트2</button> */}
           <ProjectContainer>
-<<<<<<< HEAD
             {projectValue}
-=======
-            <Project onClick={() => history.push('./project')}>
-              <ProjectTitle>ABO</ProjectTitle>
-              <ProjectImg />
-              <ProjectDesc>퍼즐을 이용한 협업 툴 만들기</ProjectDesc>
-              <ProjectDate>생성날짜 2020-01-13</ProjectDate>
-            </Project>
-
->>>>>>> 99f9bef9f9e59f37e9f5db528a802bb1a517e1be
           </ProjectContainer>
         </Div2>
       </Div>

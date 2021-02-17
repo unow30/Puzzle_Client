@@ -3,10 +3,12 @@ import styled from 'styled-components'
 import axios from 'axios'
 import { useHistory } from 'react-router-dom'
 
-import { FindEamilModal } from './FindEmailModal'
-import { FindPwModal } from './FindPwModal'
+import { FindEamilModal } from '../user/FindEmailModal'
+import { FindPwModal } from '../user/FindPwModal'
 
 import LoginError from './LoginError'
+
+import logo from '../Img/Puzzle_Logo_ Square.png'
 
 export const Login = ({ setSignUp }) => {
   const history = useHistory()
@@ -31,15 +33,15 @@ export const Login = ({ setSignUp }) => {
   }
 
   const handleLogin = (event) => {
-    event.preventDefault();
     axios
       .post('https://api.teampuzzle.ga:4000/user/login', {
         email,
         password,
       })
       .then(res => {
+        event.preventDefault();
         sessionStorage.setItem('accessToken', res.data.accessToken)
-        //history.push('/home')
+        history.push('/home')
         console.log('로그인 성공', sessionStorage)
       })
       .catch(err => {
@@ -60,27 +62,24 @@ export const Login = ({ setSignUp }) => {
   }
 
   return (
-    <div>
-      <UserInfoBox>
-        <UserInfoInput
-          onChange={onChange}
-          name="email"
-          type="email"
-          placeholder="Email"
-        />
-        <UserInfoInput
-          onChange={onChange}
-          name="password"
-          type="password"
-          placeholder="Password"
-        />
-      </UserInfoBox>
-      <LoginBox>
-        <Loginbtn onClick={handleLogin}>Login</Loginbtn>
-        <FindUserInfobtn onClick={openEmailModal}>Find Email</FindUserInfobtn>
-        <FindUserInfobtn onClick={openPwModal}>Find PW</FindUserInfobtn>
-        <SignUpbtn onClick={onSignUp}>Sign Up</SignUpbtn>
-      </LoginBox>
+    <Login_Containers>
+      <Login_Logo src={logo}></Login_Logo>
+      <UserInfoInput
+        onChange={onChange}
+        name="email"
+        type="email"
+        placeholder="이메일"
+      />
+      <UserInfoInput
+        onChange={onChange}
+        name="password"
+        type="password"
+        placeholder="비밀번호"
+      />
+      <Loginbtn onClick={handleLogin}>로그인</Loginbtn>
+      <FindUserInfobtn onClick={openEmailModal}>이메일 찾기</FindUserInfobtn>
+      <FindUserInfobtn onClick={openPwModal}>비밀번호 찾기</FindUserInfobtn>
+      <SignUpbtn onClick={onSignUp}>회원가입</SignUpbtn>
       <FindEamilModal
         showEmailModal={showEmailModal}
         setShowEmailModal={setShowEmailModal}
@@ -90,22 +89,26 @@ export const Login = ({ setSignUp }) => {
         showLoginErrorModal={showLoginErrorModal}
         setShowLoginErrorModal={setShowLoginErrorModal}
       ></LoginError>
-    </div>
+    </Login_Containers>
   )
 }
 
-const UserInfoBox = styled.div`
-  position: absolute;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+const Login_Containers = styled.div`
+  height: 100%;
+  width: 800px;
+  margin-left:auto;
+  display:flex;
   align-items: center;
-  justify-content: space-between;
-  right: 10vw;
-  top: 40vh;
-  height: 8vh;
-  background-color: transparent;
+  flex-direction: column;
+  float: right;
 `
+
+const Login_Logo = styled.img`
+  width: 80px;
+  height: 80px;
+  margin: 150px 0px 300px 0px;
+`
+
 const UserInfoInput = styled.input`
   background-color: transparent;
   border: transparent;
@@ -120,34 +123,24 @@ const UserInfoInput = styled.input`
     color: white;
   }
   font-size: 1.1rem;
+  margin-bottom: 50px;
 `
 
-const LoginBox = styled.div`
-  position: absolute;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  justify-content: space-between;
-  align-items: center;
-  color: white;
-  right: 10vw;
-  top: 53vh;
-  height: 20vh;
-  width: 10vw;
-  background-color: transparent;
-`
 const Loginbtn = styled.button`
   border-radius: 8px;
   color: white;
   width: 12vw;
   height: 4vh;
-  background-color: #afafaf;
+  background-color: #FA991D;
   cursor: pointer;
-  &:active,
-  &:focus {
-    outline: none;
-  }
+  outline: none;
   font-size: 1.1rem;
+  border: none;
+
+  &:hover {
+    color: #111;
+}
+margin-bottom: 20px;
 `
 
 const FindUserInfobtn = styled.button`
@@ -157,22 +150,27 @@ const FindUserInfobtn = styled.button`
   height: 4vh;
   background-color: #1c7690;
   cursor: pointer;
-  &:active,
-  &:focus {
-    outline: none;
-  }
+  border: none;
   font-size: 1.1rem;
+  outline: none;
+
+  &:hover {
+    color: #111;
+}
+margin-bottom: 20px;
 `
 const SignUpbtn = styled.button`
   border-radius: 8px;
-  color: balck;
+  color: white;
   width: 12vw;
   height: 4vh;
-  background-color: white;
+  background-color: gray;
   cursor: pointer;
-  &:active,
-  &:focus {
-    outline: none;
-  }
+  border: none;
   font-size: 1.1rem;
+  outline: none;
+
+  &:hover {
+    color: #111;
+}
 `
