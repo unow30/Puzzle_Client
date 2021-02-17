@@ -26,16 +26,16 @@ const Contents = (projectData) => {
   })
 
   project.forEach((data, i) => {
-      projectValue[project[i].id] = 
-      <Project>
-      <ProjectUser_Containers>
-       <ProjectUser_img src = {project[i].usersData[j].profileImg}></ProjectUser_img>
-      </ProjectUser_Containers>
-      <ProjectTitle>{project[i].title}</ProjectTitle>
-      <ProjectImg />
-      <ProjectDesc>{project[i].description}</ProjectDesc>
-      <ProjectDate>{project[i].createdAt.substring(0, 19).replace('T', ' ')}</ProjectDate>
-    </Project>
+    //   projectValue[project[i].id] = 
+    //   <Project>
+    //   <ProjectUser_Containers>
+    //    <ProjectUser_img src = {project[i].usersData[j].profileImg}></ProjectUser_img>
+    //   </ProjectUser_Containers>
+    //   <ProjectTitle>{project[i].title}</ProjectTitle>
+    //   <ProjectImg />
+    //   <ProjectDesc>{project[i].description}</ProjectDesc>
+    //   <ProjectDate>{project[i].createdAt.substring(0, 19).replace('T', ' ')}</ProjectDate>
+    // </Project>
 
   })
 
