@@ -2,6 +2,8 @@ import React, { useState } from 'react'
 import styled from 'styled-components'
 import axios from 'axios'
 
+import logo from '../Img/Puzzle_Logo_ Square.png'
+
 export const SignUp = ({ setSignUp }) => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -52,7 +54,6 @@ export const SignUp = ({ setSignUp }) => {
       .then(res => {
         alert('회원가입이 완료되었습니다.')
         setSignUp(prev => !prev)
-        console.log('댄응답')
       })
       .catch(err => {
         if (err.response.status === 409) {
@@ -69,18 +70,20 @@ export const SignUp = ({ setSignUp }) => {
 
   return (
     <>
+    <SignUp_Containers>
+      <Login_Logo src={logo}></Login_Logo>
       <UserSignUpBox>
         <UserInfoInput
           onChange={onChange}
           name="email"
           type="email"
-          placeholder="Email"
+          placeholder="이메일"
         />
         <UserInfoInput
           onChange={onChange}
           name="password"
           type="password"
-          placeholder="Password"
+          placeholder="비밀번호"
         />
         {/* <UserInfoInput
           onChange={onChange}
@@ -92,28 +95,44 @@ export const SignUp = ({ setSignUp }) => {
           onChange={onChange}
           name="name"
           type="text"
-          placeholder="Name"
+          placeholder="닉네임"
         />
         <UserInfoInput
           onChange={onChange}
           name="tel"
           type="tel"
-          placeholder="Phone"
+          placeholder="휴대전화 번호"
         />
       </UserSignUpBox>
       <SignUpBox>
-        <SignUpbtn onClick={handleSignup}>Sign Up</SignUpbtn>
-        <Loginbtn onClick={onSignUp}>Login</Loginbtn>
+        <SignUpbtn onClick={handleSignup}>회원가입</SignUpbtn>
+        <Loginbtn onClick={onSignUp}>뒤로가기</Loginbtn>
       </SignUpBox>
+    </SignUp_Containers>
     </>
   )
 }
+
+const SignUp_Containers = styled.div`
+  height: 100%;
+  width: 800px;
+  margin-left:auto;
+  display:flex;
+  align-items: center;
+  flex-direction: column;
+  float: right;
+`
+
+const Login_Logo = styled.img`
+  width: 80px;
+  height: 80px;
+  margin: 150px 0px 300px 0px;
+`
 
 const UserSignUpBox = styled.div`
   position: absolute;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
   justify-content: space-between;
   right: 10vw;
@@ -153,16 +172,18 @@ const SignUpBox = styled.div`
 
 const SignUpbtn = styled.button`
   border-radius: 8px;
-  color: balck;
+  color: white;
   width: 12vw;
   height: 4vh;
-  background-color: white;
+  background-color: #FA991D;
   cursor: pointer;
-  &:active,
-  &:focus {
-    outline: none;
-  }
+  outline: none;
   font-size: 1.1rem;
+  border: none;
+
+  &:hover {
+    color: #111;
+}
 `
 
 const Loginbtn = styled.button`
@@ -170,11 +191,13 @@ const Loginbtn = styled.button`
   color: white;
   width: 12vw;
   height: 4vh;
-  background-color: #afafaf;
+  background-color: gray;
   cursor: pointer;
-  &:active,
-  &:focus {
-    outline: none;
-  }
+  outline: none;
   font-size: 1.1rem;
+  border: none;
+
+  &:hover {
+    color: #111;
+}
 `

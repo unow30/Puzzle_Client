@@ -17,6 +17,11 @@ export const FindEamilModal = ({ showEmailModal, setShowEmailModal }) => {
     setFind(prev => !prev)
   }
 
+  const closeEvent = () => {
+    setFind(false);
+    setShowEmailModal(prev => !prev)
+  }
+
   const findEmail = e => {
     axios
       .post('https://api.teampuzzle.ga:4000/user/findemail', {
@@ -24,14 +29,16 @@ export const FindEamilModal = ({ showEmailModal, setShowEmailModal }) => {
         phone,
       })
       .then(res => {
-        setEmail(`당신의 이메일은 : ${res.data.data}입니다.`)
+        setEmail(`당신의 이메일은 ${res.data.data} 입니다.`)
         setFind(prev => !prev)
+        setName('')
+        setPhone('')
         e.preventDefault()
       })
       .catch(err => {
         setFind(prev => !prev)
         e.preventDefault()
-        setEmail(`일치하는 이메일이 없습니다.`)
+        setEmail(`입력하신 정보가 올바르지 않습니다.`)
       })
   }
 
@@ -45,6 +52,7 @@ export const FindEamilModal = ({ showEmailModal, setShowEmailModal }) => {
 
   const closeModal = e => {
     if (modalRef.current === e.target) {
+      setFind(false)
       setShowEmailModal(false)
     }
   }
@@ -52,6 +60,7 @@ export const FindEamilModal = ({ showEmailModal, setShowEmailModal }) => {
   const keyPress = useCallback(
     e => {
       if (e.key === 'Escape' && showEmailModal) {
+        setFind(false)
         setShowEmailModal(false)
       }
     },
@@ -85,14 +94,14 @@ export const FindEamilModal = ({ showEmailModal, setShowEmailModal }) => {
         <Background onClick={closeModal} ref={modalRef}>
           <animated.div style={animation}>
             <ModalWrapper showEmailModal={showEmailModal}>
-              <EmailP>Email 찾기</EmailP>
+              <EmailP>이메일 찾기</EmailP>
               <Logo src={Logo_S} />
               {find ? (
                 <>
                   <UserInfoBox>
                     <UserInfo> {email}</UserInfo>
                   </UserInfoBox>
-                  <Findbtn onClick={onFind}>뒤로가기</Findbtn>
+                  <Backbtn onClick={onFind}>뒤로가기</Backbtn>
                 </>
               ) : (
                 <>
@@ -101,13 +110,13 @@ export const FindEamilModal = ({ showEmailModal, setShowEmailModal }) => {
                       onChange={onChange}
                       name="name"
                       type="text"
-                      placeholder="Name"
+                      placeholder="닉네임"
                     />
                     <UserInfoInput
                       onChange={onChange}
                       name="tel"
                       type="text"
-                      placeholder="Phone"
+                      placeholder="휴대전화 번호"
                     />
                   </UserInfoBox>
                   <Findbtn onClick={findEmail}>찾기</Findbtn>
@@ -115,7 +124,7 @@ export const FindEamilModal = ({ showEmailModal, setShowEmailModal }) => {
               )}
               <CloseModalButton
                 aria-label="Close modal"
-                onClick={() => setShowEmailModal(prev => !prev)}
+                onClick={() => closeEvent()}
               />
             </ModalWrapper>
           </animated.div>
@@ -133,6 +142,7 @@ const Background = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-right: 70%;
 `
 
 const ModalWrapper = styled.div`
@@ -143,8 +153,6 @@ const ModalWrapper = styled.div`
   position: relative;
   z-index: 10;
   border-radius: 10px;
-  
-  
 }
 `
 
@@ -179,7 +187,7 @@ const UserInfo = styled.div`
   padding-bottom: 10px;
   margin-bottom: 40px;
   color: white;
-  width: 10vw;
+  width: 100%;
 
   font-size: 1.1rem;
 `
@@ -196,6 +204,7 @@ const UserInfoBox = styled.div`
   left: 400px;
   display: flex;
   flex-direction: column;
+  width: 300px;
 `
 
 const Findbtn = styled.button`
@@ -203,17 +212,36 @@ const Findbtn = styled.button`
   top: 400px;
   left: 400px;
   border-radius: 8px;
-  color: balck;
   width: 200px;
   height: 50px;
-  background-color: white;
+  background-color: #FA991D;
+  outline: none;
+  border: none;
+  color:white;
   cursor: pointer;
-  &:active,
-  &:focus {
-    outline: none;
+  &:hover {
+    color: #111;
+}
+  font-size: 1.1rem;
+`
+const Backbtn = styled.button`
+  position: absolute;
+  top: 400px;
+  left: 400px;
+  border-radius: 8px;
+  width: 200px;
+  height: 50px;
+  background-color: gray;
+  outline: none;
+  border: none;
+  color:white;
+  cursor: pointer;
+  &:hover {
+    color: #111;
   }
   font-size: 1.1rem;
 `
+
 const Logo = styled.img`
   width: 250px;
   margin-left: 50px;
