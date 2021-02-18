@@ -6,17 +6,17 @@ import Puzzle9 from './Puzzle9'
 import { PuzzleSet } from './PuzzleSet'
 import { UserCircle } from '@styled-icons/boxicons-solid/UserCircle'
 
-const ProjectContent = () => {
+const ProjectContent = (props) => {
   const [showPuzzleSet, setShowPuzzleSet] = useState(false)
 
   const openPuzzleSet = () => {
     setShowPuzzleSet(prev => !prev)
     // console.log('클릭')
   }
-
+  console.log(props.projectInfo)
   return (
     <ProjectContent_Container>
-      <Project_title>ABO</Project_title>
+      <Project_title>{props.projectInfo.project.title}</Project_title>
       <ProjectPuzzleImg>
         {/* <Puzzle image={Img} /> */}
         {/* <Puzzle9 /> */}
@@ -46,12 +46,12 @@ const ProjectContent = () => {
           <option>김윤호</option>
           <option>조희건</option>
         </PuzzlePeaceSelect>
-        <PuzzlePeaceInformation type="text" placeholder="업무내용" />
+        <PuzzlePeaceInformation type="text" placeholder={props.projectInfo.project.description} />
       </DivisionWorkBox>
 
       <CommentBox>
         <CommentTitle>Comment Area</CommentTitle>
-        <CommentInputMessage type="text" placeholder="코멘트를 입력해주세요" />
+        <CommentInputMessage type="text" placeholder="코멘트를 입력해주세요" cols="10" rows="10" />
         <CommentInputMessagebtn>등록</CommentInputMessagebtn>
         <CommentContentBox>
           <CommentContentUserImg />
@@ -77,7 +77,7 @@ export default ProjectContent
 const ProjectContent_Container = styled.div`
   background-color: #052439;
   width: calc(100vw - 500px);
-  height: 100%;
+  height: 42rem;
   border-radius: 30px;
   overflow-x: auto;
   overflow-y: scroll;
@@ -191,23 +191,28 @@ const CommentBox = styled.div`
   margin-left: 5%;
   border-radius: 20px;
 `
-const CommentTitle = styled.div`
-  position: relative;
+const CommentTitle = styled.span`
+  border: 3px solid #73AD21;
+  position: static;
+  display: block;
   top: 50px;
   left: 12vw;
+  margin: 0 auto;
+  margin-top: 1rem;
   color: black;
   font-size: 3rem;
   font-weight: bold;
 `
 
-const CommentInputMessage = styled.input`
+const CommentInputMessage = styled.textarea`
   margin-top: 150px;
   margin-left: 10vw;
-  width: 20vw;
-  height: 38px;
+  width: 50vw;
+  height: 20vw;
   border: none;
   border-radius: 10px;
   text-align: center;
+  resize: none;
   &:focus {
     outline: none;
   }
