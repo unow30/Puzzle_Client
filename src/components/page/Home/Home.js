@@ -10,7 +10,7 @@ import Contents from './components/Contents'
 
 import background_img from '../../../images/background/background.jpg'
 
-const Home = () => {
+const Home = (props) => {
 
   const [projectData,setProjectData] = useState({});
   const [loading,setLoading] = useState(true);
@@ -29,8 +29,9 @@ const Home = () => {
       setProjectData(projects);
       setLoading(false);
     })
-  },[])
+    .catch(err => console.err(err))
 
+  },[])
   return (
     <Background>
       <Backgroundgradient>
@@ -41,7 +42,7 @@ const Home = () => {
             <>
             </>
           ) : (
-            <Contents projectData = {projectData} />
+            <Contents projectData = {projectData} projectUp={props.projectUp} />
           )}
           <Home_SideBar_Right></Home_SideBar_Right>
         </Calendar_Content_Containers>
