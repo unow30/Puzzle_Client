@@ -12,13 +12,14 @@ import background_img from '../../../images/background/background.jpg'
 
 const Project = (props) => {
   const projectInfo = props.projectInfo
+  const projectUp = props.projectUp
   return (
     <Background>
       <Backgroundgradient>
         <Project_Header></Project_Header>
         <Calendar_Content_Containers>
           <Project_SideBar_Left></Project_SideBar_Left>
-          <ProjectContent projectInfo={projectInfo}></ProjectContent>
+          <ProjectContent projectInfo={projectInfo} projectUp={projectUp}></ProjectContent>
           <Project_SideBar_Right></Project_SideBar_Right>
         </Calendar_Content_Containers>
         <Project_Footer></Project_Footer>

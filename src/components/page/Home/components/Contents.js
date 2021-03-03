@@ -33,10 +33,12 @@ const Contents = (projectData) => {
       })
       .then(res => {
         const projectInfo = res.data;
-        projectData.projectUp(projectInfo)
+        const stringInfo = JSON.stringify(projectInfo);
+        sessionStorage.setItem('projectInfo', stringInfo);
+        const refreshInfo = JSON.parse(sessionStorage.getItem('projectInfo'));
+        projectData.projectUp(refreshInfo);
       })
       .then(res => history.push("/project"))
-      .catch(err => console.err(err))
   }
    // console.log(data)  //data는 프로젝트 정보와 그 프로젝트에 속한 팀원의 정보가 담긴 '배열'
   return (
@@ -107,13 +109,14 @@ const Div = styled.div`
   // background-color: red;
   margin: 1rem;
 `
+
 const Div2 = styled.div`
   position: relative;
   display: flex;
   flex-wrap: wrap;
   flex-direction: row;
   justify-content: space-between;
-
+  margin-left: 1.2rem;
   width: calc(100vw - 500px);
 `
 

@@ -1,10 +1,12 @@
-import React, { useState,useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
 import Home_Header from '../template/Header'
 import Home_SideBar_Left from '../template/SideBarLeft'
 import Home_SideBar_Right from '../template/SideBarRight'
 import Home_Footer from '../template/Footer'
 import axios from 'axios'
+import ReactLoading from 'react-loading';
+
 
 import Contents from './components/Contents'
 
@@ -39,8 +41,11 @@ const Home = (props) => {
         <Calendar_Content_Containers>
           <Home_SideBar_Left></Home_SideBar_Left>
           {loading ? (
-            <>
-            </>
+              <LoadingContainer>
+                <Loading>
+                  <ReactLoading height={'10%'} width={'10%'} type={'spin'}/>
+                </Loading>
+              </ LoadingContainer>
           ) : (
             <Contents projectData = {projectData} projectUp={props.projectUp} />
           )}
@@ -81,4 +86,18 @@ const Calendar_Content_Containers = styled.div`
   width: 100%;
   height: calc(100vh - 280px);
   display: flex;
+`
+const LoadingContainer = styled.div`
+  width: 100%;
+  min-height: 100%;
+  overflow: auto;
+  margin: 1rem;
+
+  `
+
+const Loading = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10rem;
 `
