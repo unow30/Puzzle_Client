@@ -2,7 +2,7 @@ import Img from '../../../../images/icon/img.jpg'
 import React from 'react'
 import styled from 'styled-components'
 
-const Puzzle9 = () => {
+const Puzzle9 = (props) => {
   return (
     <>
       {/* <ProjectPuzzleContainer> */}
@@ -33,7 +33,7 @@ const ProjectPuzzleContainer = styled.div`
   height: 100vh;
 `
 
-const ProjectPuzzleImg01 = styled.div`
+const ProjectPuzzleImg01 = styled.img`
   background-image: url(${Img});
   position: absolute;
   width: 300px;

@@ -16,6 +16,8 @@ const App = () => {
   const projectUp = (project) => {
     setProjectInfo(project)
   }
+
+  
   return (
     <ThemeProvider theme={theme}>
       <GlobalStyles></GlobalStyles>
@@ -23,7 +25,7 @@ const App = () => {
         <Switch>
           <Route exact path="/" component={Landing}></Route>
           <Route path="/home" component={() => <Home projectUp={projectUp}/>}></Route>
-          <Route path="/project" component={() => <Project projectInfo={projectInfo}/>}></Route>
+          <Route path="/project" component={() => <Project projectInfo={projectInfo} projectUp={projectUp} />}></Route>
           <Route path="/puzzle" component={Puzzle}></Route>
           <Route path="/calendar" component={Calendar}></Route>
         </Switch>
