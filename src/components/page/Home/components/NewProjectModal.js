@@ -314,7 +314,7 @@ const CurrMemBox = styled.div`
 
 const ProjectMemberInfoBox = styled.div``
 
-const AddUserCodebtn = styled.span`
+const AddUserCodebtn = styled.div`
   color: white;
   margin-left: 2px;
   cursor: pointer;
