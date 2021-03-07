@@ -37,9 +37,8 @@
 # 🔨 Architecture
 
 [figma 스토리보드](https://www.figma.com/file/fk7uku8sSoboQyXBzrwUIM/ABO_PUZZLE)
-
 [miro 플로우차트](https://miro.com/app/board/o9J_lZ7xm-Y=/)
-
+[Database schema](https://bit.ly/3c7Dbpl)
 
 # 🗣 우리를 소개합니다.
 
